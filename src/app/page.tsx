@@ -17,9 +17,18 @@ export default function Home() {
           </p>
         </article>
         <article className="pt-48">
-          <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-            See an animal
-          </button>
+          <form action="/api/transactions" method="POST">
+            {/* Required body fields for the API are sent as hidden inputs */}
+            <input type="hidden" name="identity_token" value="" />
+            <input type="hidden" name="amount" value="2" />
+            <input type="hidden" name="amusement_uuid" value="" />
+            <button
+              type="submit"
+              className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition"
+            >
+              See an animal
+            </button>
+          </form>
         </article>
       </section>
     </main>
