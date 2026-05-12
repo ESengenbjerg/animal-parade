@@ -32,6 +32,7 @@ export default function Home() {
         process.env.NEXT_PUBLIC_AMUSEMENT_UUID!, // Amusement's Api key
       );
 
+      // Attach stamp in API response to URL
       // Redirect to attraction page
       router.push(
         `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
