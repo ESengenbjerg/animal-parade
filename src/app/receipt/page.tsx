@@ -1,17 +1,66 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import type { Stamp } from "@/lib/api/types";
 import Link from "next/link";
 
-export default function receiptPage() {
+export default function ReceiptPage() {
+  const searchParams = useSearchParams();
+  const [stamp, setStamp] = useState<Stamp | null>(null);
+
+  // Parse stamp from query
+  useEffect(() => {
+    const raw = searchParams.get("stamp");
+    if (!raw) return;
+
+    try {
+      const parsed = JSON.parse(raw) as Stamp;
+      setStamp(parsed);
+    } catch (err) {
+      console.log("Failed to parse stamp:", err);
+    }
+  }, [searchParams]);
+
   return (
     <main
       className="h-screen bg-cover bg-center text-2xl text-black"
       style={{ backgroundImage: "url(/background.jpg)" }}
     >
-      <h1>This is the receipt page</h1>
-      <Link href="https://tivoli-develop.up.railway.app/">
-        <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-          Go back to Tivoli!
-        </button>
-      </Link>
+      <section className="flex flex-col items-center justify-center h-full text-center">
+        <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
+
+        <p className="text-xl mb-4">
+          <span className="font-semibold">Entrance fee:</span> 2 euro
+        </p>
+
+        {stamp ? (
+          <div className="mb-8">
+            <p className="text-xl">
+              <span className="font-semibold">Stamp received:</span>{" "}
+              {stamp.animal}
+            </p>
+
+            {stamp.metal && (
+              <p className="text-lg opacity-80">Metal: {stamp.metal}</p>
+            )}
+
+            {stamp.image_url ? (
+              <p>Image_url: {stamp.image_url}</p>
+            ) : (
+              <p>No image_url was found</p>
+            )}
+          </div>
+        ) : (
+          <p className="text-lg text-red-700">No stamp found.</p>
+        )}
+
+        <Link href="https://tivoli-develop.up.railway.app/">
+          <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
+            Go back to Tivoli
+          </button>
+        </Link>
+      </section>
     </main>
   );
 }
