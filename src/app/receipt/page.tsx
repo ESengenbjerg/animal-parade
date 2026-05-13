@@ -1,11 +1,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import type { Stamp } from "@/lib/api/types";
 import Link from "next/link";
 
-export default function ReceiptPage() {
+function ReceiptContent() {
   const searchParams = useSearchParams();
   const [stamp, setStamp] = useState<Stamp | null>(null);
 
@@ -63,4 +63,10 @@ export default function ReceiptPage() {
       </section>
     </main>
   );
+}
+
+export default function ReceiptPage() {
+  <Suspense fallback={<div>Loading...</div>}>
+    <ReceiptContent />
+  </Suspense>;
 }

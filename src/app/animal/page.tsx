@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -12,7 +15,7 @@ import {
   validMetals,
 } from "@/lib/api/types";
 
-export default function AnimalPage() {
+function AnimalContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -110,5 +113,13 @@ export default function AnimalPage() {
         )}
       </section>
     </main>
+  );
+}
+
+export default function AnimalPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AnimalContent />
+    </Suspense>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { startTransaction } from "@/lib/api/centralbank";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Home() {
+function HomeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [token, setToken] = useState<string | null>(null);
@@ -76,4 +76,10 @@ export default function Home() {
       </section>
     </main>
   );
+}
+
+export default function Home() {
+  <Suspense fallback={<div>Loading...</div>}>
+    <HomeContent />
+  </Suspense>;
 }
