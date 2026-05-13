@@ -9,6 +9,7 @@ import {
   animalSpeed,
   Animals,
   stampAnimals,
+  validMetals,
 } from "@/lib/api/types";
 
 export default function AnimalPage() {
@@ -32,6 +33,12 @@ export default function AnimalPage() {
 
       // Animal in stamp must be of valid type
       if (!stampAnimals.includes(parsed.animal)) {
+        router.replace("/");
+        return;
+      }
+
+      // If metal is present, it must be valid
+      if (parsed.metal !== undefined && !validMetals.includes(parsed.metal)) {
         router.replace("/");
         return;
       }
@@ -71,7 +78,7 @@ export default function AnimalPage() {
 
   return (
     <main
-      className="h-screen bg-cover bg-center text-2xl text-black"
+      className="h-screen bg-cover bg-center text-2xl text-black flex flex-col justify-between items-center"
       style={{ backgroundImage: "url(/background.jpg)" }}
     >
       <section className="flex flex-col items-center justify-center h-full">
@@ -91,8 +98,16 @@ export default function AnimalPage() {
           </>
         )}
       </section>
-      <section>
-        <p>This is the section where the animals moves</p>
+      {/* This is the section where the animals moves */}
+      <section className="flex items-center justify-center h-1/3 w-screen overflow-x-hidden">
+        {paradeAnimal && (
+          <img
+            src={`/${paradeAnimal}.png`}
+            alt={paradeAnimal}
+            style={{ animationDuration: `${animalSpeed[paradeAnimal]}ms` }}
+            className="w-64 h-auto animate-walk"
+          />
+        )}
       </section>
     </main>
   );
