@@ -12,6 +12,7 @@ export const stampAnimals: StampAnimal[] = [
 export interface Stamp {
   animal: StampAnimal;
   metal?: "silver" | "gold" | "platinum";
+  image_url?: string;
 }
 
 export const validMetals = ["silver", "gold", "platinum"] as const;
