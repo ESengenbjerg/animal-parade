@@ -1,10 +1,10 @@
 // Possible stamps from Centralbank:
-export type StampAnimal = "lion" | "dolphin" | "tucan" | "beetlebug" | "snake";
+export type StampAnimal = "lion" | "dolphin" | "toucan" | "beetlebug" | "snake";
 
 export const stampAnimals: StampAnimal[] = [
   "lion",
   "dolphin",
-  "tucan",
+  "toucan",
   "beetlebug",
   "snake",
 ];
@@ -13,6 +13,8 @@ export interface Stamp {
   animal: StampAnimal;
   metal?: "silver" | "gold" | "platinum";
 }
+
+export const validMetals = ["silver", "gold", "platinum"] as const;
 
 // Response from POST /transactions
 export interface TransactionResponse {
