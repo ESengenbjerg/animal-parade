@@ -66,7 +66,9 @@ function ReceiptContent() {
 }
 
 export default function ReceiptPage() {
-  <Suspense fallback={<div>Loading...</div>}>
-    <ReceiptContent />
-  </Suspense>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReceiptContent />
+    </Suspense>
+  );
 }
