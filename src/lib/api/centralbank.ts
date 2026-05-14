@@ -1,7 +1,7 @@
 import { ApiError, TransactionResponse } from "./types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_CENTRALBANK_URL;
-const API_KEY = process.env.NEXT_PUBLIC_AMUSEMENT_UUID!;
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY!;
 
 export async function startTransaction(
   identityToken: string,
@@ -16,7 +16,7 @@ export async function startTransaction(
     body: JSON.stringify({
       identity_token: identityToken,
       amount,
-      "X-Api-Key": API_KEY,
+      api_key: API_KEY,
     }),
   });
 
