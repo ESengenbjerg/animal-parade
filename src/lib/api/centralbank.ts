@@ -6,18 +6,17 @@ const API_KEY = process.env.NEXT_PUBLIC_AMUSEMENT_UUID!;
 export async function startTransaction(
   identityToken: string,
   amount: number,
-  amusementUuid: string,
+  API_KEY: string,
 ): Promise<TransactionResponse> {
   const res = await fetch(`${BASE_URL}/transactions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Api-Key": API_KEY,
     },
     body: JSON.stringify({
       identity_token: identityToken,
       amount,
-      amusement_uuid: amusementUuid,
+      "X-Api-Key": API_KEY,
     }),
   });
 
