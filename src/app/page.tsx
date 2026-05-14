@@ -29,7 +29,7 @@ function HomeContent() {
       const result = await startTransaction(
         token, //Token from URL
         2, // Entrance fee
-        process.env.NEXT_PUBLIC_AMUSEMENT_UUID!, // Amusement's Api key
+        process.env.NEXT_PUBLIC_API_KEY!, // Amusement's Api key
       );
 
       // Attach stamp in API response to URL
