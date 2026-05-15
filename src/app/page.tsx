@@ -29,7 +29,7 @@ function HomeContent() {
       const result = await startTransaction(
         token, //Token from URL
         2, // Entrance fee
-        process.env.NEXT_PUBLIC_API_KEY!, // Amusement's Api key
+        // process.env.NEXT_PUBLIC_API_KEY!, // Amusement's Api key
       );
 
       // Attach stamp in API response to URL
@@ -37,9 +37,23 @@ function HomeContent() {
       router.push(
         `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
       );
-    } catch (err) {
-      console.error(err);
-      alert("Your token has expired. Please return to the Tivoli.");
+    } catch (err: any) {
+      console.error("RAW ERROR:", err);
+
+      if (typeof err === "object" && err !== null) {
+        console.error("ERROR KEYS:", Object.keys(err));
+      } else {
+        console.error("ERROR TYPE:", typeof err);
+      }
+
+      if (err?.error === "identity_token_invalid_or_expired") {
+        alert("Your token has expired. Please return to the Tivoli.");
+      } else if (err?.error === "invalid_api_key") {
+        alert("Your API key is invalid.");
+      } else {
+        alert("Unexpected error. Check console.");
+      }
+
       router.push("https://tivoli-develop.up.railway.app/");
     }
   }
