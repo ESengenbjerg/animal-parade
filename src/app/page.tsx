@@ -32,6 +32,9 @@ function HomeContent() {
         // process.env.NEXT_PUBLIC_API_KEY!, // Amusement's Api key
       );
 
+      // Check what transaction request retruns:
+      console.log("Transaction result:", result);
+
       // Attach stamp in API response to URL
       // Redirect to attraction page
       router.push(
