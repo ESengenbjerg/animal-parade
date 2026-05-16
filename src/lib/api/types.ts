@@ -21,6 +21,16 @@ export const validMetals = ["silver", "gold", "platinum"] as const;
 export interface TransactionResponse {
   id: string; // transaction ID
   stamp: Stamp; // Received stamp
+  stamptype: StampType; // Added: type info for the stamp
+}
+
+// StampType describes the animal and optional metal
+export interface StampType {
+  id: number;
+  animal: string;
+  metal?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 // Error from API

@@ -37,8 +37,16 @@ function HomeContent() {
 
       // Attach stamp in API response to URL
       // Redirect to attraction page
+      // router.push(
+      //   `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
+      // );
       router.push(
-        `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
+        `/animal?stamp=${encodeURIComponent(
+          JSON.stringify({
+            animal: result.stamptype.animal,
+            metal: result.stamptype?.metal,
+          }),
+        )}`,
       );
     } catch (err: any) {
       console.error("RAW ERROR:", err);
