@@ -46,15 +46,17 @@ function HomeContent() {
         console.error("ERROR TYPE:", typeof err);
       }
 
-      if (err?.error === "identity_token_invalid_or_expired") {
+      if (err?.message === "Invalid or expired identity token") {
         alert("Your token has expired. Please return to the Tivoli.");
-      } else if (err?.error === "invalid_api_key") {
+      } else if (err?.message === "Invalid api_key") {
         alert("Your API key is invalid.");
+      } else if (err?.message === "Insufficient balance") {
+        alert("You do not have enough balance.");
       } else {
         alert("Unexpected error. Check console.");
       }
 
-      router.push("https://tivoli-develop.up.railway.app/");
+      // router.push("https://tivoli-develop.up.railway.app/");
     }
   }
 
