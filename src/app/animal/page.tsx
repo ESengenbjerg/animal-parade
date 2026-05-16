@@ -6,11 +6,11 @@ import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  Stamp,
+  ParadeStamp,
   Animal,
   paradeAnimals,
   animalSpeed,
-  Animals,
+  //   Animals,
   stampAnimals,
   validMetals,
 } from "@/lib/api/types";
@@ -19,7 +19,7 @@ function AnimalContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [stamp, setStamp] = useState<Stamp | null>(null);
+  const [stamp, setStamp] = useState<ParadeStamp | null>(null);
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function AnimalContent() {
 
     // Parse stamp from query, validate it
     try {
-      const parsed = JSON.parse(raw) as Stamp;
+      const parsed = JSON.parse(raw) as ParadeStamp;
 
       // Animal in stamp must be of valid type
       if (!stampAnimals.includes(parsed.animal)) {

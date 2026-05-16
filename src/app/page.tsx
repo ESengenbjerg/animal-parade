@@ -43,8 +43,9 @@ function HomeContent() {
       router.push(
         `/animal?stamp=${encodeURIComponent(
           JSON.stringify({
-            animal: result.stamptype.animal,
-            metal: result.stamptype?.metal,
+            animal: result.stamp.stamptype.animal,
+            metal: result.stamp.stamptype?.metal ?? undefined,
+            image_url: result.stamp.stamptype?.image_url ?? undefined,
           }),
         )}`,
       );

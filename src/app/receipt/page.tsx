@@ -2,12 +2,12 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import type { Stamp } from "@/lib/api/types";
+import type { ParadeStamp } from "@/lib/api/types";
 import Link from "next/link";
 
 function ReceiptContent() {
   const searchParams = useSearchParams();
-  const [stamp, setStamp] = useState<Stamp | null>(null);
+  const [stamp, setStamp] = useState<ParadeStamp | null>(null);
 
   // Parse stamp from query
   useEffect(() => {
@@ -15,7 +15,7 @@ function ReceiptContent() {
     if (!raw) return;
 
     try {
-      const parsed = JSON.parse(raw) as Stamp;
+      const parsed = JSON.parse(raw) as ParadeStamp;
       setStamp(parsed);
     } catch (err) {
       console.log("Failed to parse stamp:", err);

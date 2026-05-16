@@ -9,28 +9,33 @@ export const stampAnimals: StampAnimal[] = [
   "snake",
 ];
 
-export interface Stamp {
+// For backend
+export interface StampType {
+  id: number;
   animal: StampAnimal;
-  metal?: "silver" | "gold" | "platinum";
+  metal?: "silver" | "gold" | "platinum" | null;
   image_url?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// For backend
+export interface Stamp {
+  id: number;
+  user_id: number;
+  stamptype_id: number;
+  image_url: string;
+  created_at: string;
+  updated_at: string;
+  stamptype: StampType;
 }
 
 export const validMetals = ["silver", "gold", "platinum"] as const;
 
 // Response from POST /transactions
 export interface TransactionResponse {
-  id: string; // transaction ID
-  stamp: Stamp; // Received stamp
-  stamptype: StampType; // Added: type info for the stamp
-}
-
-// StampType describes the animal and optional metal
-export interface StampType {
   id: number;
-  animal: string;
-  metal?: string;
-  created_at?: string;
-  updated_at?: string;
+  stamp: Stamp;
 }
 
 // Error from API
@@ -60,3 +65,10 @@ export const animalSpeed: Record<Animal, number> = {
   penguin: 60000,
   turtle: 120000,
 };
+
+// Frontend stamp
+export interface ParadeStamp {
+  animal: StampAnimal;
+  metal?: "silver" | "gold" | "platinum";
+  image_url?: string;
+}
