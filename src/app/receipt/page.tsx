@@ -37,16 +37,15 @@ function ReceiptContent() {
         {stamp ? (
           <div className="mb-8">
             <p className="text-xl">
-              <span className="font-semibold">Stamp received:</span>{" "}
+              <span className="font-semibold">Stamp received:</span>
+            </p>
+            <p className="text-xl">
+              {stamp.metal && <span>{stamp.metal} </span>}
               {stamp.animal}
             </p>
 
-            {stamp.metal && (
-              <p className="text-lg opacity-80">Metal: {stamp.metal}</p>
-            )}
-
             {stamp.image_url ? (
-              <p>Image_url: {stamp.image_url}</p>
+              <img src={stamp.image_url} alt={stamp.metal && stamp.animal} />
             ) : (
               <p>No image_url was found</p>
             )}
@@ -55,7 +54,7 @@ function ReceiptContent() {
           <p className="text-lg text-red-700">No stamp found.</p>
         )}
 
-        <Link href="https://tivoli-develop.up.railway.app/">
+        <Link href="https://frontend-main-1ac7.up.railway.app/user">
           <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
             Go back to Tivoli
           </button>

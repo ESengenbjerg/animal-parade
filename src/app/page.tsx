@@ -68,7 +68,7 @@ function HomeContent() {
         alert("Unexpected error. Check console.");
       }
 
-      // router.push("https://tivoli-develop.up.railway.app/");
+      // router.push("https://frontend-main-1ac7.up.railway.app/user");
     }
   }
 
