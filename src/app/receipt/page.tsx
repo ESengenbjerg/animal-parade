@@ -1,5 +1,6 @@
 "use client";
 
+import Background from "@/components/Background";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Stamp } from "@/lib/api/types";
@@ -23,11 +24,12 @@ export default function ReceiptPage() {
   }, [searchParams]);
 
   return (
-    <main
+    <Background>
+      {/* <main
       className="h-screen bg-cover bg-center text-2xl text-black"
       style={{ backgroundImage: "url(/background.jpg)" }}
-    >
-      <section className="flex flex-col items-center justify-center h-full text-center">
+      > */}
+      <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
         <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
         <p className="text-xl mb-4">
@@ -61,6 +63,7 @@ export default function ReceiptPage() {
           </button>
         </Link>
       </section>
-    </main>
+      {/* </main> */}
+    </Background>
   );
 }

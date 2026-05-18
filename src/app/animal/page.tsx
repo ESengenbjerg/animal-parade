@@ -1,5 +1,6 @@
 "use client";
 
+import Background from "@/components/Background";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -77,38 +78,42 @@ export default function AnimalPage() {
   }, [paradeAnimal, stamp, router]);
 
   return (
-    <main
-      className="h-screen bg-cover bg-center text-2xl text-black flex flex-col justify-between items-center"
-      style={{ backgroundImage: "url(/background.jpg)" }}
-    >
-      <section className="flex flex-col items-center justify-center h-full">
-        <h1>This is the animal page where all the animal thrives</h1>
-        {!paradeAnimal && (
-          <p className="text-2xl">
-            We are currently looking for your animal...
-          </p>
-        )}
+    // <main
+    //   className="h-screen bg-cover bg-center text-2xl text-black flex flex-col justify-between items-center"
+    //   style={{ backgroundImage: "url(/background.jpg)" }}
+    // >
+    <Background>
+      <div className="h-screen flex flex-col justify-between items-center">
+        <section className="flex flex-col items-center justify-center h-full text-2xl text-black">
+          <h1>This is the animal page where all the animal thrives</h1>
+          {!paradeAnimal && (
+            <p className="text-2xl">
+              We are currently looking for your animal...
+            </p>
+          )}
 
-        {paradeAnimal && (
-          <>
-            <h2 className="text-3xl font-bold mb-8">
-              You got a {paradeAnimal}!
-            </h2>
-            <p>The animal starts to appear... be patient!</p>
-          </>
-        )}
-      </section>
-      {/* This is the section where the animals moves */}
-      <section className="flex items-center justify-center h-1/3 w-screen overflow-x-hidden">
-        {paradeAnimal && (
-          <img
-            src={`/${paradeAnimal}.png`}
-            alt={paradeAnimal}
-            style={{ animationDuration: `${animalSpeed[paradeAnimal]}ms` }}
-            className="w-64 h-auto animate-walk"
-          />
-        )}
-      </section>
-    </main>
+          {paradeAnimal && (
+            <>
+              <h2 className="text-3xl font-bold mb-8">
+                You got a {paradeAnimal}!
+              </h2>
+              <p>The animal starts to appear... be patient!</p>
+            </>
+          )}
+        </section>
+        {/* This is the section where the animals moves */}
+        <section className="flex items-center justify-center h-1/3 w-screen overflow-x-hidden">
+          {paradeAnimal && (
+            <img
+              src={`/${paradeAnimal}.png`}
+              alt={paradeAnimal}
+              style={{ animationDuration: `${animalSpeed[paradeAnimal]}ms` }}
+              className="w-64 h-auto animate-walk"
+            />
+          )}
+        </section>
+      </div>
+    </Background>
+    // </main>
   );
 }

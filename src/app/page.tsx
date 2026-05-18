@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Background from "@/components/Background";
 import { useEffect, useState } from "react";
 import { startTransaction } from "@/lib/api/centralbank";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -45,10 +46,11 @@ export default function Home() {
   }
 
   return (
-    <main
-      className="h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url(/background.jpg)" }}
-    >
+    // <main
+    //   className="h-screen bg-cover bg-center"
+    //   style={{ backgroundImage: "url(/background.jpg)" }}
+    // >
+    <Background>
       <section className="flex flex-col items-center justify-evenly h-full text-black">
         <article className="pb-8">
           <h1 className="font-bold text-4xl">Welcome to the animal parade!</h1>
@@ -74,6 +76,7 @@ export default function Home() {
           )}
         </article>
       </section>
-    </main>
+    </Background>
+    // </main>
   );
 }
