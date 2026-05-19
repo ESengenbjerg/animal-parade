@@ -44,5 +44,19 @@ body {
 
 .fade-out-text {
   opacity: 0;
-  transform: opacity 0.8s ease-out;
+  transition: opacity 0.8s ease-out;
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  z-index: 9999;
+}
+
+.page-transition.active {
+  opacity: 1;
 }

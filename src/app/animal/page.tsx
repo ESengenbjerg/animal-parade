@@ -57,6 +57,19 @@ function AnimalContent() {
   //   }
   // }, [searchParams, router]);
 
+  // Page transition
+  useEffect(() => {
+    const overlay = document.getElementById("page-transition");
+
+    //Start black
+    overlay?.classList.add("active");
+
+    // Fade in by removing class
+    setTimeout(() => {
+      overlay?.classList.remove("active");
+    }, 50);
+  }, []);
+
   // Initial delay - for nice UI experience, even with fast animals
   const initialDelay = 6000;
 
@@ -80,8 +93,6 @@ function AnimalContent() {
     return () => clearTimeout(timer);
   }, [paradeAnimal]);
 
-  // const duration = animalSpeed[paradeAnimal];
-
   // When intro is done:
   useEffect(() => {
     if (!paradeAnimal || !stamp || !introDone) return;
@@ -89,9 +100,14 @@ function AnimalContent() {
     const duration = animalSpeed[paradeAnimal];
 
     const timer = setTimeout(() => {
-      router.push(
-        `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
-      );
+      const overlay = document.getElementById("page-transition");
+      overlay?.classList.add("active");
+
+      setTimeout(() => {
+        router.push(
+          `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
+        );
+      }, 800); // Matches duration on CSS-animation
     }, duration);
 
     return () => clearTimeout(timer);

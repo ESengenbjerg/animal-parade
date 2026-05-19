@@ -14,6 +14,19 @@ function ReceiptContent() {
   // Parse stamp from query
   const stamp = useStampFromQuery();
 
+  // Fade in effect on page
+  useEffect(() => {
+    const overlay = document.getElementById("page-transition");
+
+    // Starta svart
+    overlay?.classList.add("active");
+
+    // Fade in
+    setTimeout(() => {
+      overlay?.classList.remove("active");
+    }, 50);
+  }, []);
+
   // useEffect(() => {
   //   const raw = searchParams.get("stamp");
   //   if (!raw) return;

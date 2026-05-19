@@ -13,7 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div id="page-transition" className="page-transition"></div>
+        {children}
+      </body>
     </html>
   );
 }

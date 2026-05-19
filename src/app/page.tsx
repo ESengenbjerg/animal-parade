@@ -37,17 +37,23 @@ function HomeContent() {
       // Check what transaction request retruns:
       console.log("Transaction result:", result);
 
+      // Page transition
+      const overlay = document.getElementById("page-transition");
+      overlay?.classList.add("active");
+
       // Attach stamp in API response to URL
       // Redirect to attraction page
-      router.push(
-        `/animal?stamp=${encodeURIComponent(
-          JSON.stringify({
-            animal: result.stamp.stamptype.animal,
-            metal: result.stamp.stamptype?.metal ?? undefined,
-            image_url: result.stamp.stamptype?.image_url ?? undefined,
-          }),
-        )}`,
-      );
+      setTimeout(() => {
+        router.push(
+          `/animal?stamp=${encodeURIComponent(
+            JSON.stringify({
+              animal: result.stamp.stamptype.animal,
+              metal: result.stamp.stamptype?.metal ?? undefined,
+              image_url: result.stamp.stamptype?.image_url ?? undefined,
+            }),
+          )}`,
+        );
+      }, 800); // Match duration in CSS animation
     } catch (err: any) {
       console.error("RAW ERROR:", err);
 
