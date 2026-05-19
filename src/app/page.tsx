@@ -4,24 +4,18 @@ import Background from "@/components/Background";
 import { Suspense, useEffect, useState } from "react";
 import { useIdentityToken } from "@/hooks/useIdentityToken";
 import { startTransaction } from "@/lib/api/centralbank";
+import Modal from "@/components/Modal";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function HomeContent() {
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
 
   // Read token from URL
   const token = useIdentityToken();
-  // useEffect(() => {
-  //   const t = searchParams.get("identity_token");
-  //   if (t) {
-  //     setToken(t);
-  //     // Remove token from URL
-  //     window.history.replaceState(null, "", "/");
-  //   }
-  // }, [searchParams]);
 
   async function handleStart() {
     if (!token) return;
@@ -54,27 +48,49 @@ function HomeContent() {
           )}`,
         );
       }, 800); // Match duration in CSS animation
+      // } catch (err: any) {
+      //   console.error("RAW ERROR:", err);
+
+      //   if (typeof err === "object" && err !== null) {
+      //     console.error("ERROR KEYS:", Object.keys(err));
+      //   } else {
+      //     console.error("ERROR TYPE:", typeof err);
+      //   }
+
+      //   if (err?.message === "Invalid or expired identity token") {
+      //     alert("Your token has expired. Please return to the Tivoli.");
+      //   } else if (err?.message === "Invalid api_key") {
+      //     alert("Your API key is invalid.");
+      //   } else if (err?.message === "Insufficient balance") {
+      //     alert("You do not have enough balance.");
+      //   } else {
+      //     alert("Unexpected error. Check console.");
+      //   }
     } catch (err: any) {
       console.error("RAW ERROR:", err);
 
-      if (typeof err === "object" && err !== null) {
-        console.error("ERROR KEYS:", Object.keys(err));
-      } else {
-        console.error("ERROR TYPE:", typeof err);
-      }
+      let title = "Unexpected error";
+      let message = "Something went wrong. Check console for details.";
 
       if (err?.message === "Invalid or expired identity token") {
-        alert("Your token has expired. Please return to the Tivoli.");
+        title = "Token expired";
+        message = "Your token has expired. Please return to the Tivoli.";
       } else if (err?.message === "Invalid api_key") {
-        alert("Your API key is invalid.");
+        title = "Invalid API key";
+        message = "Your API key is invalid.";
       } else if (err?.message === "Insufficient balance") {
-        alert("You do not have enough balance.");
-      } else {
-        alert("Unexpected error. Check console.");
+        title = "Insufficient balance";
+        message = "You do not have enough balance.";
       }
 
-      router.push("https://frontend-main-1ac7.up.railway.app/");
+      setModalTitle(title);
+      setModalMessage(message);
+      setModalOpen(true);
+
+      return; // Stop redirecting immediately
     }
+
+    // router.push("https://frontend-main-1ac7.up.railway.app/");
   }
 
   return (
@@ -104,6 +120,15 @@ function HomeContent() {
           )}
         </article>
       </section>
+      <Modal
+        open={modalOpen}
+        title={modalTitle}
+        message={modalMessage}
+        onClose={() => {
+          setModalOpen(false);
+          router.push("https://frontend-main-1ac7.up.railway.app/");
+        }}
+      />
     </Background>
   );
 }
