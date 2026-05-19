@@ -9,7 +9,6 @@ import {
   Animal,
   paradeAnimals,
   animalSpeed,
-  //   Animals,
   stampAnimals,
   validMetals,
 } from "@/lib/api/types";
@@ -79,10 +78,6 @@ function AnimalContent() {
   }, [paradeAnimal, stamp, router]);
 
   return (
-    // <main
-    //   className="h-screen bg-cover bg-center text-2xl text-black flex flex-col justify-between items-center"
-    //   style={{ backgroundImage: "url(/background.jpg)" }}
-    // >
     <Background>
       <div className="h-screen flex flex-col justify-between items-center">
         <section className="flex flex-col items-center justify-center h-full text-2xl text-black">
@@ -115,7 +110,6 @@ function AnimalContent() {
         </section>
       </div>
     </Background>
-    // </main>
   );
 }
 

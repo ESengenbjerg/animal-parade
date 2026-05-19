@@ -25,10 +25,6 @@ function ReceiptContent() {
 
   return (
     <Background>
-      {/* <main
-      className="h-screen bg-cover bg-center text-2xl text-black"
-      style={{ backgroundImage: "url(/background.jpg)" }}
-      > */}
       <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
         <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
@@ -62,7 +58,6 @@ function ReceiptContent() {
           </button>
         </Link>
       </section>
-      {/* </main> */}
     </Background>
   );
 }

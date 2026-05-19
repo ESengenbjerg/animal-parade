@@ -30,7 +30,6 @@ function HomeContent() {
       const result = await startTransaction(
         token, //Token from URL
         2, // Entrance fee
-        // process.env.NEXT_PUBLIC_API_KEY!, // Amusement's Api key
       );
 
       // Check what transaction request retruns:
@@ -38,9 +37,6 @@ function HomeContent() {
 
       // Attach stamp in API response to URL
       // Redirect to attraction page
-      // router.push(
-      //   `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
-      // );
       router.push(
         `/animal?stamp=${encodeURIComponent(
           JSON.stringify({
@@ -69,15 +65,11 @@ function HomeContent() {
         alert("Unexpected error. Check console.");
       }
 
-      // router.push("https://frontend-main-1ac7.up.railway.app/user");
+      router.push("https://frontend-main-1ac7.up.railway.app/");
     }
   }
 
   return (
-    // <main
-    //   className="h-screen bg-cover bg-center"
-    //   style={{ backgroundImage: "url(/background.jpg)" }}
-    // >
     <Background>
       <section className="flex flex-col items-center justify-evenly h-full text-black">
         <article className="pb-8">
@@ -105,7 +97,6 @@ function HomeContent() {
         </article>
       </section>
     </Background>
-    // </main>
   );
 }
 
