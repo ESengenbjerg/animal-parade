@@ -5,7 +5,7 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY!;
 
 export async function startTransaction(
   identityToken: string,
-  // amount: number,
+  amount: number,
   //   API_KEY: string,
 ): Promise<TransactionResponse> {
   const res = await fetch(`${BASE_URL}/transactions`, {

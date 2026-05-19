@@ -31,7 +31,7 @@ function HomeContent() {
 
       const result = await startTransaction(
         token, //Token from URL
-        // 2, // Entrance fee
+        2, // Entrance fee
       );
 
       // Check what transaction request retruns:
