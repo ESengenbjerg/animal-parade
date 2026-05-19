@@ -1,5 +1,6 @@
 "use client";
 
+import Background from "@/components/Background";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import type { ParadeStamp } from "@/lib/api/types";
@@ -23,11 +24,12 @@ function ReceiptContent() {
   }, [searchParams]);
 
   return (
-    <main
+    <Background>
+      {/* <main
       className="h-screen bg-cover bg-center text-2xl text-black"
       style={{ backgroundImage: "url(/background.jpg)" }}
-    >
-      <section className="flex flex-col items-center justify-center h-full text-center">
+      > */}
+      <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
         <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
         <p className="text-xl mb-4">
@@ -60,7 +62,8 @@ function ReceiptContent() {
           </button>
         </Link>
       </section>
-    </main>
+      {/* </main> */}
+    </Background>
   );
 }
 
