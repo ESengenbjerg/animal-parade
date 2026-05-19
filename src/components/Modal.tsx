@@ -15,7 +15,7 @@ export default function Modal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-9999">
-      <div className="bg-white rounded-xl shadow-xl p-8 max-w-md text-center">
+      <div className="bg-white rounded-xl shadow-xl p-8 max-w-md text-center text-black">
         <h2 className="text-2xl font-bold mb-4">{title}</h2>
         <p className="mb-6">{message}</p>
 
