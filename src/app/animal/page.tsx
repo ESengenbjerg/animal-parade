@@ -3,56 +3,75 @@ export const dynamic = "force-dynamic";
 
 import Background from "@/components/Background";
 import { Suspense, useEffect, useState } from "react";
+import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ParadeStamp,
   Animal,
   paradeAnimals,
   animalSpeed,
-  //   Animals,
   stampAnimals,
   validMetals,
 } from "@/lib/api/types";
 
 function AnimalContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const [stamp, setStamp] = useState<ParadeStamp | null>(null);
+  const stamp = useStampFromQuery();
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
+  const [introDone, setIntroDone] = useState(false);
 
+  // const searchParams = useSearchParams();
+
+  // const [stamp, setStamp] = useState<ParadeStamp | null>(null);
+
+  // useEffect(() => {
+  //   // If stamp is missing -> send to start page, protects the flow
+  //   const raw = searchParams.get("stamp");
+  //   if (!raw) {
+  //     router.replace("/");
+  //     return;
+  //   }
+
+  //   // Parse stamp from query, validate it
+  //   try {
+  //     const parsed = JSON.parse(raw) as ParadeStamp;
+
+  //     // Animal in stamp must be of valid type
+  //     if (!stampAnimals.includes(parsed.animal)) {
+  //       router.replace("/");
+  //       return;
+  //     }
+
+  //     // If metal is present, it must be valid
+  //     if (parsed.metal !== undefined && !validMetals.includes(parsed.metal)) {
+  //       router.replace("/");
+  //       return;
+  //     }
+
+  //     // Stamp is valid
+  //     setStamp(parsed);
+  //   } catch (err) {
+  //     console.error("Failed to parse stamp:", err);
+  //     // If invalid stamp
+  //     router.replace("/");
+  //   }
+  // }, [searchParams, router]);
+
+  // Page transition
   useEffect(() => {
-    // If stamp is missing -> send to start page, protects the flow
-    const raw = searchParams.get("stamp");
-    if (!raw) {
-      router.replace("/");
-      return;
-    }
+    const overlay = document.getElementById("page-transition");
 
-    // Parse stamp from query, validate it
-    try {
-      const parsed = JSON.parse(raw) as ParadeStamp;
+    //Start black
+    overlay?.classList.add("active");
 
-      // Animal in stamp must be of valid type
-      if (!stampAnimals.includes(parsed.animal)) {
-        router.replace("/");
-        return;
-      }
+    // Fade in by removing class
+    setTimeout(() => {
+      overlay?.classList.remove("active");
+    }, 50);
+  }, []);
 
-      // If metal is present, it must be valid
-      if (parsed.metal !== undefined && !validMetals.includes(parsed.metal)) {
-        router.replace("/");
-        return;
-      }
-
-      // Stamp is valid
-      setStamp(parsed);
-    } catch (err) {
-      console.error("Failed to parse stamp:", err);
-      // If invalid stamp
-      router.replace("/");
-    }
-  }, [searchParams, router]);
+  // Initial delay - for nice UI experience, even with fast animals
+  const initialDelay = 6000;
 
   // Pick random parade animal
   useEffect(() => {
@@ -63,26 +82,38 @@ function AnimalContent() {
     setParadeAnimal(random);
   }, [stamp]);
 
-  // Start animation timer for choosen animal
+  // Start intro delay timer when animal is choosen
   useEffect(() => {
     if (!paradeAnimal || !stamp) return;
+
+    const timer = setTimeout(() => {
+      setIntroDone(true);
+    }, initialDelay);
+
+    return () => clearTimeout(timer);
+  }, [paradeAnimal]);
+
+  // When intro is done:
+  useEffect(() => {
+    if (!paradeAnimal || !stamp || !introDone) return;
 
     const duration = animalSpeed[paradeAnimal];
 
     const timer = setTimeout(() => {
-      router.push(
-        `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
-      );
+      const overlay = document.getElementById("page-transition");
+      overlay?.classList.add("active");
+
+      setTimeout(() => {
+        router.push(
+          `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
+        );
+      }, 800); // Matches duration on CSS-animation
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [paradeAnimal, stamp, router]);
+  }, [paradeAnimal, stamp, introDone, router]);
 
   return (
-    // <main
-    //   className="h-screen bg-cover bg-center text-2xl text-black flex flex-col justify-between items-center"
-    //   style={{ backgroundImage: "url(/background.jpg)" }}
-    // >
     <Background>
       <div className="h-screen flex flex-col justify-between items-center">
         <section className="flex flex-col items-center justify-center h-full text-2xl text-black">
@@ -98,7 +129,10 @@ function AnimalContent() {
               <h2 className="text-3xl font-bold mb-8">
                 You got a {paradeAnimal}!
               </h2>
-              <p>The animal starts to appear... be patient!</p>
+
+              <p className={!introDone ? "opacity-100" : "fade-out-text"}>
+                The animal starts to appear... be patient!
+              </p>
             </>
           )}
         </section>
@@ -115,7 +149,6 @@ function AnimalContent() {
         </section>
       </div>
     </Background>
-    // </main>
   );
 }
 

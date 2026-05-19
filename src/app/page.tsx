@@ -2,24 +2,26 @@
 import Image from "next/image";
 import Background from "@/components/Background";
 import { Suspense, useEffect, useState } from "react";
+import { useIdentityToken } from "@/hooks/useIdentityToken";
 import { startTransaction } from "@/lib/api/centralbank";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function HomeContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [token, setToken] = useState<string | null>(null);
+  // const searchParams = useSearchParams();
+  // const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Read token from URL
-  useEffect(() => {
-    const t = searchParams.get("identity_token");
-    if (t) {
-      setToken(t);
-      // Remove token from URL
-      window.history.replaceState(null, "", "/");
-    }
-  }, [searchParams]);
+  const token = useIdentityToken();
+  // useEffect(() => {
+  //   const t = searchParams.get("identity_token");
+  //   if (t) {
+  //     setToken(t);
+  //     // Remove token from URL
+  //     window.history.replaceState(null, "", "/");
+  //   }
+  // }, [searchParams]);
 
   async function handleStart() {
     if (!token) return;
@@ -29,27 +31,29 @@ function HomeContent() {
 
       const result = await startTransaction(
         token, //Token from URL
-        2, // Entrance fee
-        // process.env.NEXT_PUBLIC_API_KEY!, // Amusement's Api key
+        // 2, // Entrance fee
       );
 
       // Check what transaction request retruns:
       console.log("Transaction result:", result);
 
+      // Page transition
+      const overlay = document.getElementById("page-transition");
+      overlay?.classList.add("active");
+
       // Attach stamp in API response to URL
       // Redirect to attraction page
-      // router.push(
-      //   `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
-      // );
-      router.push(
-        `/animal?stamp=${encodeURIComponent(
-          JSON.stringify({
-            animal: result.stamp.stamptype.animal,
-            metal: result.stamp.stamptype?.metal ?? undefined,
-            image_url: result.stamp.stamptype?.image_url ?? undefined,
-          }),
-        )}`,
-      );
+      setTimeout(() => {
+        router.push(
+          `/animal?stamp=${encodeURIComponent(
+            JSON.stringify({
+              animal: result.stamp.stamptype.animal,
+              metal: result.stamp.stamptype?.metal ?? undefined,
+              image_url: result.stamp.stamptype?.image_url ?? undefined,
+            }),
+          )}`,
+        );
+      }, 800); // Match duration in CSS animation
     } catch (err: any) {
       console.error("RAW ERROR:", err);
 
@@ -69,15 +73,11 @@ function HomeContent() {
         alert("Unexpected error. Check console.");
       }
 
-      // router.push("https://frontend-main-1ac7.up.railway.app/user");
+      router.push("https://frontend-main-1ac7.up.railway.app/");
     }
   }
 
   return (
-    // <main
-    //   className="h-screen bg-cover bg-center"
-    //   style={{ backgroundImage: "url(/background.jpg)" }}
-    // >
     <Background>
       <section className="flex flex-col items-center justify-evenly h-full text-black">
         <article className="pb-8">
@@ -105,7 +105,6 @@ function HomeContent() {
         </article>
       </section>
     </Background>
-    // </main>
   );
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Background from "@/components/Background";
+import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import type { ParadeStamp } from "@/lib/api/types";
@@ -8,27 +9,38 @@ import Link from "next/link";
 
 function ReceiptContent() {
   const searchParams = useSearchParams();
-  const [stamp, setStamp] = useState<ParadeStamp | null>(null);
+  // const [stamp, setStamp] = useState<ParadeStamp | null>(null);
 
   // Parse stamp from query
-  useEffect(() => {
-    const raw = searchParams.get("stamp");
-    if (!raw) return;
+  const stamp = useStampFromQuery();
 
-    try {
-      const parsed = JSON.parse(raw) as ParadeStamp;
-      setStamp(parsed);
-    } catch (err) {
-      console.log("Failed to parse stamp:", err);
-    }
-  }, [searchParams]);
+  // Fade in effect on page
+  useEffect(() => {
+    const overlay = document.getElementById("page-transition");
+
+    // Starta svart
+    overlay?.classList.add("active");
+
+    // Fade in
+    setTimeout(() => {
+      overlay?.classList.remove("active");
+    }, 50);
+  }, []);
+
+  // useEffect(() => {
+  //   const raw = searchParams.get("stamp");
+  //   if (!raw) return;
+
+  //   try {
+  //     const parsed = JSON.parse(raw) as ParadeStamp;
+  //     setStamp(parsed);
+  //   } catch (err) {
+  //     console.log("Failed to parse stamp:", err);
+  //   }
+  // }, [searchParams]);
 
   return (
     <Background>
-      {/* <main
-      className="h-screen bg-cover bg-center text-2xl text-black"
-      style={{ backgroundImage: "url(/background.jpg)" }}
-      > */}
       <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
         <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
@@ -62,7 +74,6 @@ function ReceiptContent() {
           </button>
         </Link>
       </section>
-      {/* </main> */}
     </Background>
   );
 }
