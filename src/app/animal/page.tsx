@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 
 import Background from "@/components/Background";
 import { Suspense, useEffect, useState } from "react";
+import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ParadeStamp,
@@ -14,44 +15,46 @@ import {
 } from "@/lib/api/types";
 
 function AnimalContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const [stamp, setStamp] = useState<ParadeStamp | null>(null);
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
+  const router = useRouter();
+  const stamp = useStampFromQuery();
 
-  useEffect(() => {
-    // If stamp is missing -> send to start page, protects the flow
-    const raw = searchParams.get("stamp");
-    if (!raw) {
-      router.replace("/");
-      return;
-    }
+  // const searchParams = useSearchParams();
 
-    // Parse stamp from query, validate it
-    try {
-      const parsed = JSON.parse(raw) as ParadeStamp;
+  // const [stamp, setStamp] = useState<ParadeStamp | null>(null);
 
-      // Animal in stamp must be of valid type
-      if (!stampAnimals.includes(parsed.animal)) {
-        router.replace("/");
-        return;
-      }
+  // useEffect(() => {
+  //   // If stamp is missing -> send to start page, protects the flow
+  //   const raw = searchParams.get("stamp");
+  //   if (!raw) {
+  //     router.replace("/");
+  //     return;
+  //   }
 
-      // If metal is present, it must be valid
-      if (parsed.metal !== undefined && !validMetals.includes(parsed.metal)) {
-        router.replace("/");
-        return;
-      }
+  //   // Parse stamp from query, validate it
+  //   try {
+  //     const parsed = JSON.parse(raw) as ParadeStamp;
 
-      // Stamp is valid
-      setStamp(parsed);
-    } catch (err) {
-      console.error("Failed to parse stamp:", err);
-      // If invalid stamp
-      router.replace("/");
-    }
-  }, [searchParams, router]);
+  //     // Animal in stamp must be of valid type
+  //     if (!stampAnimals.includes(parsed.animal)) {
+  //       router.replace("/");
+  //       return;
+  //     }
+
+  //     // If metal is present, it must be valid
+  //     if (parsed.metal !== undefined && !validMetals.includes(parsed.metal)) {
+  //       router.replace("/");
+  //       return;
+  //     }
+
+  //     // Stamp is valid
+  //     setStamp(parsed);
+  //   } catch (err) {
+  //     console.error("Failed to parse stamp:", err);
+  //     // If invalid stamp
+  //     router.replace("/");
+  //   }
+  // }, [searchParams, router]);
 
   // Pick random parade animal
   useEffect(() => {

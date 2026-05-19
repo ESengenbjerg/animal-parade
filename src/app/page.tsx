@@ -2,24 +2,26 @@
 import Image from "next/image";
 import Background from "@/components/Background";
 import { Suspense, useEffect, useState } from "react";
+import { useIdentityToken } from "@/hooks/useIdentityToken";
 import { startTransaction } from "@/lib/api/centralbank";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function HomeContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [token, setToken] = useState<string | null>(null);
+  // const searchParams = useSearchParams();
+  // const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Read token from URL
-  useEffect(() => {
-    const t = searchParams.get("identity_token");
-    if (t) {
-      setToken(t);
-      // Remove token from URL
-      window.history.replaceState(null, "", "/");
-    }
-  }, [searchParams]);
+  const token = useIdentityToken();
+  // useEffect(() => {
+  //   const t = searchParams.get("identity_token");
+  //   if (t) {
+  //     setToken(t);
+  //     // Remove token from URL
+  //     window.history.replaceState(null, "", "/");
+  //   }
+  // }, [searchParams]);
 
   async function handleStart() {
     if (!token) return;
