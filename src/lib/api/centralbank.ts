@@ -15,7 +15,7 @@ export async function startTransaction(
     },
     body: JSON.stringify({
       identity_token: identityToken,
-      // amount,
+      amount,
       api_key: API_KEY,
     }),
   });
