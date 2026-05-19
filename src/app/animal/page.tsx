@@ -15,9 +15,10 @@ import {
 } from "@/lib/api/types";
 
 function AnimalContent() {
-  const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
   const router = useRouter();
   const stamp = useStampFromQuery();
+  const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
+  const [introDone, setIntroDone] = useState(false);
 
   // const searchParams = useSearchParams();
 
@@ -56,6 +57,9 @@ function AnimalContent() {
   //   }
   // }, [searchParams, router]);
 
+  // Initial delay - for nice UI experience, even with fast animals
+  const initialDelay = 6000;
+
   // Pick random parade animal
   useEffect(() => {
     if (!stamp) return;
@@ -65,9 +69,22 @@ function AnimalContent() {
     setParadeAnimal(random);
   }, [stamp]);
 
-  // Start animation timer for choosen animal
+  // Start intro delay timer when animal is choosen
   useEffect(() => {
     if (!paradeAnimal || !stamp) return;
+
+    const timer = setTimeout(() => {
+      setIntroDone(true);
+    }, initialDelay);
+
+    return () => clearTimeout(timer);
+  }, [paradeAnimal]);
+
+  // const duration = animalSpeed[paradeAnimal];
+
+  // When intro is done:
+  useEffect(() => {
+    if (!paradeAnimal || !stamp || !introDone) return;
 
     const duration = animalSpeed[paradeAnimal];
 
@@ -78,7 +95,7 @@ function AnimalContent() {
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [paradeAnimal, stamp, router]);
+  }, [paradeAnimal, stamp, introDone, router]);
 
   return (
     <Background>
@@ -96,7 +113,10 @@ function AnimalContent() {
               <h2 className="text-3xl font-bold mb-8">
                 You got a {paradeAnimal}!
               </h2>
-              <p>The animal starts to appear... be patient!</p>
+
+              <p className={!introDone ? "opacity-100" : "fade-out-text"}>
+                The animal starts to appear... be patient!
+              </p>
             </>
           )}
         </section>

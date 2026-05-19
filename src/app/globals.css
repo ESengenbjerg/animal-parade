@@ -41,3 +41,8 @@ body {
   animation-fill-mode: forwards;
   animation-duration: 20000ms; /* Fallback, overwritten by inline style */
 }
+
+.fade-out-text {
+  opacity: 0;
+  transform: opacity 0.8s ease-out;
+}
