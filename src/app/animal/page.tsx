@@ -1,13 +1,8 @@
 "use client";
-
-<<<<<<< HEAD
 export const dynamic = "force-dynamic";
 
-import { Suspense } from "react";
-=======
 import Background from "@/components/Background";
->>>>>>> develop
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ParadeStamp,
