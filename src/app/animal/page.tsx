@@ -91,11 +91,6 @@ function AnimalContent() {
             message="Sorry! Something went wrong. Please return to the Tivoli"
           />
           <BackToBtn />
-          {/* <Link href="https://frontend-main-1ac7.up.railway.app/user">
-              <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-                Go back to Tivoli
-              </button>
-            </Link> */}
         </section>
       </Background>
     );
