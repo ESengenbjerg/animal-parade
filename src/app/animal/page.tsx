@@ -67,19 +67,31 @@ function AnimalContent() {
     if (!paradeAnimal || !stamp || !introDone) return;
 
     const duration = animalSpeed[paradeAnimal];
+    const fadeTime = 800;
 
     const timer = setTimeout(() => {
       const overlay = document.getElementById("page-transition");
       overlay?.classList.add("active");
+    }, duration - fadeTime);
 
-      setTimeout(() => {
-        router.push(
-          `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
-        );
-      }, 800); // Matches duration on CSS-animation
+    const redirectTimer = setTimeout(() => {
+      router.push(
+        `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
+      );
     }, duration);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(redirectTimer);
+    };
+
+    //   setTimeout(() => {
+    //     router.push(
+    //       `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
+    //     );
+    //   }, 800); // Matches duration on CSS-animation
+    // }, duration);
+    // return () => clearTimeout(timer);
   }, [paradeAnimal, stamp, introDone, router]);
 
   // Fallback UI if not valid stamp
