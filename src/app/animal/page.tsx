@@ -25,26 +25,6 @@ function AnimalContent() {
   const [introDone, setIntroDone] = useState(false);
   const validation = validateStamp(stamp);
 
-  // Fallback UI if not valid stamp
-  if (!validation.valid) {
-    return (
-      <Background>
-        <section className="flex flex-col justify-center items-center">
-          <ErrorMessage
-            title="Invalid stamp"
-            message="Sorry! Something went wrong. Please return to the Tivoli"
-          />
-          <BackToBtn />
-          {/* <Link href="https://frontend-main-1ac7.up.railway.app/user">
-              <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-                Go back to Tivoli
-              </button>
-            </Link> */}
-        </section>
-      </Background>
-    );
-  }
-
   // Page transition
   useEffect(() => {
     const overlay = document.getElementById("page-transition");
@@ -100,6 +80,26 @@ function AnimalContent() {
 
     return () => clearTimeout(timer);
   }, [paradeAnimal, stamp, introDone, router]);
+
+  // Fallback UI if not valid stamp
+  if (!validation.valid) {
+    return (
+      <Background>
+        <section className="flex flex-col justify-center items-center">
+          <ErrorMessage
+            title="Invalid stamp"
+            message="Sorry! Something went wrong. Please return to the Tivoli"
+          />
+          <BackToBtn />
+          {/* <Link href="https://frontend-main-1ac7.up.railway.app/user">
+              <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
+                Go back to Tivoli
+              </button>
+            </Link> */}
+        </section>
+      </Background>
+    );
+  }
 
   return (
     <Background>

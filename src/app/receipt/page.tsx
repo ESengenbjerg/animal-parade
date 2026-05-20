@@ -12,32 +12,12 @@ import Link from "next/link";
 
 function ReceiptContent() {
   const searchParams = useSearchParams();
-  // const [stamp, setStamp] = useState<ParadeStamp | null>(null);
 
   // Parse stamp from query
   const stamp = useStampFromQuery();
 
   // Validate stamp
   const validation = validateStamp(stamp);
-
-  // Fallback UI if stamp is invalid
-  if (!validation.valid) {
-    return (
-      <Background>
-        <ErrorMessage
-          title="Missing or invalid stamp"
-          message="We could not find your stamp. Please return to the Tivoli"
-        />
-        <article className="mt-12">
-          <Link href="https://frontend-main-1ac7.up.railway.app/user">
-            <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-              Go back to Tivoli
-            </button>
-          </Link>
-        </article>
-      </Background>
-    );
-  }
 
   // Fade in effects
   useEffect(() => {
@@ -57,6 +37,25 @@ function ReceiptContent() {
       receipt?.classList.add("opacity-100", "translate-y-0");
     }, 350);
   }, []);
+
+  // Fallback UI if stamp is invalid
+  if (!validation.valid) {
+    return (
+      <Background>
+        <ErrorMessage
+          title="Missing or invalid stamp"
+          message="We could not find your stamp. Please return to the Tivoli"
+        />
+        <article className="mt-12">
+          <Link href="https://frontend-main-1ac7.up.railway.app/user">
+            <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
+              Go back to Tivoli
+            </button>
+          </Link>
+        </article>
+      </Background>
+    );
+  }
 
   return (
     <Background>
@@ -101,11 +100,6 @@ function ReceiptContent() {
         </article>
 
         <BackToBtn />
-        {/* <Link href="https://frontend-main-1ac7.up.railway.app/user">
-            <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-              Go back to Tivoli
-            </button>
-          </Link> */}
       </section>
     </Background>
   );
