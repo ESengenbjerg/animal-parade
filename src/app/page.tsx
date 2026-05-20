@@ -105,21 +105,37 @@ function HomeContent() {
           </p>
         </article>
         <article className="pt-48 flex flex-col justify-center items-center">
-          <button
+          {/* <button
             onClick={handleStart}
             disabled={!token || loading}
             className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg max-w-64 bg-orange-400 hover:bg-orange-500 text-white transition"
           >
             {loading ? "Loading..." : "See an animal"}
+          </button> */}
+          <button
+            onClick={handleStart}
+            disabled={!token || loading}
+            aria-disabled={!token || loading}
+            className={`px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg transition
+              ${
+                !token || loading
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-orange-400 hover:bg-orange-500 text-white"
+              }`}
+          >
+            {loading ? "Loading..." : "See an animal"}
           </button>
+
           {!token && (
             // <p className="text-sm text-red-700 mt-4">
             //   <strong>ERROR! </strong> You must enter through the Tivoli to play
             // </p>
-            <ErrorMessage
-              title="Missing token"
-              message="You must enter through the Tivoli"
-            />
+            <div className="mt-6">
+              <ErrorMessage
+                title="Missing token"
+                message="You must enter through the Tivoli"
+              />
+            </div>
           )}
         </article>
       </section>
