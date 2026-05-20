@@ -49,7 +49,7 @@ function ReceiptContent() {
     <Background>
       <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
         <article
-          id="recept-card"
+          id="receipt-card"
           className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md
             opacity-0 translate-y-4
             transition-all duration-700"
@@ -87,11 +87,13 @@ function ReceiptContent() {
           )}
         </article>
 
-        <Link href="https://frontend-main-1ac7.up.railway.app/user">
-          <button className="mt-8 px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-            Go back to Tivoli
-          </button>
-        </Link>
+        <article className="mt-12">
+          <Link href="https://frontend-main-1ac7.up.railway.app/user">
+            <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
+              Go back to Tivoli
+            </button>
+          </Link>
+        </article>
       </section>
     </Background>
   );
