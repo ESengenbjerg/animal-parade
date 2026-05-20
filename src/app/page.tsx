@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import Background from "@/components/Background";
+import ErrorMessage from "@/components/ErrorMessage";
+import { mapError } from "@/lib/error";
 import { Suspense, useEffect, useState } from "react";
 import { useIdentityToken } from "@/hooks/useIdentityToken";
 import { startTransaction } from "@/lib/api/centralbank";
@@ -48,49 +50,46 @@ function HomeContent() {
           )}`,
         );
       }, 800); // Match duration in CSS animation
-      // } catch (err: any) {
-      //   console.error("RAW ERROR:", err);
-
-      //   if (typeof err === "object" && err !== null) {
-      //     console.error("ERROR KEYS:", Object.keys(err));
-      //   } else {
-      //     console.error("ERROR TYPE:", typeof err);
-      //   }
-
-      //   if (err?.message === "Invalid or expired identity token") {
-      //     alert("Your token has expired. Please return to the Tivoli.");
-      //   } else if (err?.message === "Invalid api_key") {
-      //     alert("Your API key is invalid.");
-      //   } else if (err?.message === "Insufficient balance") {
-      //     alert("You do not have enough balance.");
-      //   } else {
-      //     alert("Unexpected error. Check console.");
-      //   }
     } catch (err: any) {
       console.error("RAW ERROR:", err);
+      const code = mapError(err);
 
       let title = "Unexpected error";
       let message = "Something went wrong. Check console for details.";
 
-      if (err?.message === "Invalid or expired identity token") {
-        title = "Token expired";
-        message = "Your token has expired. Please return to the Tivoli.";
-      } else if (err?.message === "Invalid api_key") {
-        title = "Invalid API key";
-        message = "Your API key is invalid.";
-      } else if (err?.message === "Insufficient balance") {
-        title = "Insufficient balance";
-        message = "You do not have enough balance.";
+      switch (code) {
+        case "TOKEN_EXPIRED":
+          title = "Token expired";
+          message = "Your token has expired. Please return to the Tivoli.";
+          break;
+
+        case "INVALID_API_KEY":
+          title = "Invalid API key";
+          message = "Your API key is invalid.";
+          break;
+
+        case "INSUFFICIENT_BALANCE":
+          title = "Insufficient balance";
+          message = "You do not have enough money.";
+          break;
       }
+      // if (err?.message === "Invalid or expired identity token") {
+      //   title = "Token expired";
+      //   message = "Your token has expired. Please return to the Tivoli.";
+      // } else if (err?.message === "Invalid api_key") {
+      //   title = "Invalid API key";
+      //   message = "Your API key is invalid.";
+      // } else if (err?.message === "Insufficient balance") {
+      //   title = "Insufficient balance";
+      //   message = "You do not have enough balance.";
+      // }
 
       setModalTitle(title);
       setModalMessage(message);
       setModalOpen(true);
 
-      return; // Stop redirecting immediately
+      return;
     }
-
-    // router.push("https://frontend-main-1ac7.up.railway.app/");
   }
 
   return (
@@ -105,18 +104,22 @@ function HomeContent() {
             <span className="font-extrabold">Entrance fee: </span>2 euro
           </p>
         </article>
-        <article className="pt-48">
+        <article className="pt-48 flex flex-col justify-center items-center">
           <button
             onClick={handleStart}
             disabled={!token || loading}
-            className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition"
+            className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg max-w-64 bg-orange-400 hover:bg-orange-500 text-white transition"
           >
             {loading ? "Loading..." : "See an animal"}
           </button>
           {!token && (
-            <p className="text-sm text-red-700 mt-4">
-              <strong>ERROR! </strong> You must enter through the Tivoli to play
-            </p>
+            // <p className="text-sm text-red-700 mt-4">
+            //   <strong>ERROR! </strong> You must enter through the Tivoli to play
+            // </p>
+            <ErrorMessage
+              title="Missing token"
+              message="You must enter through the Tivoli"
+            />
           )}
         </article>
       </section>
@@ -126,6 +129,7 @@ function HomeContent() {
         message={modalMessage}
         onClose={() => {
           setModalOpen(false);
+          // Redirect back to tivoli
           router.push("https://frontend-main-1ac7.up.railway.app/");
         }}
       />

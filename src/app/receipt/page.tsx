@@ -1,6 +1,8 @@
 "use client";
 
 import Background from "@/components/Background";
+import ErrorMessage from "@/components/ErrorMessage";
+import { validateStamp } from "@/lib/validateStamp";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -13,6 +15,28 @@ function ReceiptContent() {
 
   // Parse stamp from query
   const stamp = useStampFromQuery();
+
+  // Validate stamp
+  const validation = validateStamp(stamp);
+
+  // Fallback UI if stamp is invalid
+  if (!validation.valid) {
+    return (
+      <Background>
+        <ErrorMessage
+          title="Missing or invalid stamp"
+          message="We could not find your stamp. Please return to the Tivoli"
+        />
+        <article className="mt-12">
+          <Link href="https://frontend-main-1ac7.up.railway.app/user">
+            <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
+              Go back to Tivoli
+            </button>
+          </Link>
+        </article>
+      </Background>
+    );
+  }
 
   // Fade in effects
   useEffect(() => {
@@ -32,18 +56,6 @@ function ReceiptContent() {
       receipt?.classList.add("opacity-100", "translate-y-0");
     }, 350);
   }, []);
-
-  // useEffect(() => {
-  //   const raw = searchParams.get("stamp");
-  //   if (!raw) return;
-
-  //   try {
-  //     const parsed = JSON.parse(raw) as ParadeStamp;
-  //     setStamp(parsed);
-  //   } catch (err) {
-  //     console.log("Failed to parse stamp:", err);
-  //   }
-  // }, [searchParams]);
 
   return (
     <Background>

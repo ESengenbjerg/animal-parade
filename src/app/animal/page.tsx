@@ -2,6 +2,8 @@
 export const dynamic = "force-dynamic";
 
 import Background from "@/components/Background";
+import ErrorMessage from "@/components/ErrorMessage";
+import { validateStamp } from "@/lib/validateStamp";
 import { Suspense, useEffect, useState } from "react";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -13,49 +15,35 @@ import {
   stampAnimals,
   validMetals,
 } from "@/lib/api/types";
+import Link from "next/link";
 
 function AnimalContent() {
   const router = useRouter();
   const stamp = useStampFromQuery();
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
   const [introDone, setIntroDone] = useState(false);
+  const validation = validateStamp(stamp);
 
-  // const searchParams = useSearchParams();
-
-  // const [stamp, setStamp] = useState<ParadeStamp | null>(null);
-
-  // useEffect(() => {
-  //   // If stamp is missing -> send to start page, protects the flow
-  //   const raw = searchParams.get("stamp");
-  //   if (!raw) {
-  //     router.replace("/");
-  //     return;
-  //   }
-
-  //   // Parse stamp from query, validate it
-  //   try {
-  //     const parsed = JSON.parse(raw) as ParadeStamp;
-
-  //     // Animal in stamp must be of valid type
-  //     if (!stampAnimals.includes(parsed.animal)) {
-  //       router.replace("/");
-  //       return;
-  //     }
-
-  //     // If metal is present, it must be valid
-  //     if (parsed.metal !== undefined && !validMetals.includes(parsed.metal)) {
-  //       router.replace("/");
-  //       return;
-  //     }
-
-  //     // Stamp is valid
-  //     setStamp(parsed);
-  //   } catch (err) {
-  //     console.error("Failed to parse stamp:", err);
-  //     // If invalid stamp
-  //     router.replace("/");
-  //   }
-  // }, [searchParams, router]);
+  // Fallback UI if not valid stamp
+  if (!validation.valid) {
+    return (
+      <Background>
+        <section className="flex flex-col justify-center items-center">
+          <ErrorMessage
+            title="Invalid stamp"
+            message="Sorry! Something went wrong. Please return to the Tivoli"
+          />
+          <article className="mt-12">
+            <Link href="https://frontend-main-1ac7.up.railway.app/user">
+              <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
+                Go back to Tivoli
+              </button>
+            </Link>
+          </article>
+        </section>
+      </Background>
+    );
+  }
 
   // Page transition
   useEffect(() => {
