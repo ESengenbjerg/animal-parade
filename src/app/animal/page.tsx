@@ -15,6 +15,7 @@ import {
   animalSpeed,
   stampAnimals,
   validMetals,
+  animalHeight,
 } from "@/lib/api/types";
 import Link from "next/link";
 
@@ -120,13 +121,16 @@ function AnimalContent() {
           )}
         </section>
         {/* This is the section where the animals moves */}
-        <section className="flex items-center justify-center h-1/3 w-screen overflow-x-hidden">
+        <section className="flex items-end justify-end h-1/3 w-screen overflow-x-hidden">
           {paradeAnimal && (
             <img
               src={`/${paradeAnimal}.png`}
               alt={paradeAnimal}
-              style={{ animationDuration: `${animalSpeed[paradeAnimal]}ms` }}
-              className="w-64 h-auto animate-walk"
+              style={{
+                animationDuration: `${animalSpeed[paradeAnimal]}ms`,
+                height: animalHeight[paradeAnimal],
+              }}
+              className="animate-walk"
             />
           )}
         </section>

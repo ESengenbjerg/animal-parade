@@ -27,11 +27,11 @@ body {
 
 @keyframes walk {
   0% {
-    transform: translateX(60vw);
+    transform: translateX(10vw);
   }
 
   100% {
-    transform: translateX(-60vw);
+    transform: translateX(-105vw);
   }
 }
 
