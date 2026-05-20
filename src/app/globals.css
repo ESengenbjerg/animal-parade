@@ -27,11 +27,13 @@ body {
 
 @keyframes walk {
   0% {
-    transform: translateX(10vw);
+    /* transform: translateX(15vw); */
+    transform: translateX(100vw);
   }
 
   100% {
-    transform: translateX(-105vw);
+    /* transform: translateX(-105vw); */
+    transform: translateX(-300px);
   }
 }
 
@@ -40,6 +42,15 @@ body {
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
   animation-duration: 20000ms; /* Fallback, overwritten by inline style */
+  animation-play-state: paused;
+}
+
+.animate-paused {
+  animation-play-state: paused;
+}
+
+.animate-running {
+  animation-play-state: running;
 }
 
 .fade-out-text {

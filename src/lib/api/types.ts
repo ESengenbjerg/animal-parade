@@ -68,11 +68,11 @@ export const animalSpeed: Record<Animal, number> = {
 
 // Decides height of animal in animation
 export const animalHeight: Record<Animal, string> = {
-  lion: "80%",
-  zebra: "90%",
-  peacock: "70%",
-  penguin: "60%",
-  turtle: "50%",
+  lion: "22vh",
+  zebra: "24vh",
+  peacock: "20vh",
+  penguin: "18vh",
+  turtle: "16vh",
 };
 
 // Frontend stamp

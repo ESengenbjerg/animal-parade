@@ -123,15 +123,22 @@ function AnimalContent() {
         {/* This is the section where the animals moves */}
         <section className="flex items-end justify-end h-1/3 w-screen overflow-x-hidden">
           {paradeAnimal && (
-            <img
-              src={`/${paradeAnimal}.png`}
-              alt={paradeAnimal}
+            <div
+              className={`absolute left-0 flex items-end justify-start overflow-visible animal-wrapper animate-walk  ${
+                introDone ? "animate-running" : "animate-paused"
+              }`}
               style={{
                 animationDuration: `${animalSpeed[paradeAnimal]}ms`,
+                width: "300px", // locked width for proper animation
                 height: animalHeight[paradeAnimal],
               }}
-              className="animate-walk"
-            />
+            >
+              <img
+                src={`/${paradeAnimal}.png`}
+                alt={paradeAnimal}
+                className="h-full w-auto object-left"
+              />
+            </div>
           )}
         </section>
       </div>
