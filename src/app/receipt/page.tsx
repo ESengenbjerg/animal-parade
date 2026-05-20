@@ -1,6 +1,7 @@
 "use client";
 
 import Background from "@/components/Background";
+import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
@@ -99,13 +100,12 @@ function ReceiptContent() {
           )}
         </article>
 
-        <article className="mt-12">
-          <Link href="https://frontend-main-1ac7.up.railway.app/user">
+        <BackToBtn />
+        {/* <Link href="https://frontend-main-1ac7.up.railway.app/user">
             <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
               Go back to Tivoli
             </button>
-          </Link>
-        </article>
+          </Link> */}
       </section>
     </Background>
   );

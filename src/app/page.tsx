@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Background from "@/components/Background";
+import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { mapError } from "@/lib/error";
 import { Suspense, useEffect, useState } from "react";
@@ -130,11 +131,12 @@ function HomeContent() {
             // <p className="text-sm text-red-700 mt-4">
             //   <strong>ERROR! </strong> You must enter through the Tivoli to play
             // </p>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-col items-center">
               <ErrorMessage
                 title="Missing token"
                 message="You must enter through the Tivoli"
               />
+              <BackToBtn />
             </div>
           )}
         </article>
