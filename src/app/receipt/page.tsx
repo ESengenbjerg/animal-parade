@@ -67,8 +67,8 @@ function ReceiptContent() {
         <article
           id="receipt-card"
           className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md
-            opacity-0 translate-y-4
             transition-all duration-700"
+          style={{ opacity: 0, transform: "translateY(1rem)" }}
         >
           <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
