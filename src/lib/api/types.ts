@@ -33,10 +33,10 @@ export interface Stamp {
 export const validMetals = ["silver", "gold", "platinum"] as const;
 
 // Response from POST /transactions
-export interface TransactionResponse {
-  id: number;
-  stamp: Stamp;
-}
+// export interface TransactionResponse {
+//   id: number;
+//   stamp: Stamp;
+// }
 
 // Error from API
 export interface ApiError {
@@ -80,4 +80,19 @@ export interface ParadeStamp {
   animal: StampAnimal;
   metal?: "silver" | "gold" | "platinum";
   image_url?: string;
+}
+
+// NEW API RESPONSE
+
+// Stamp returned directly from Centralbank API
+export interface ApiStamp {
+  animal: StampAnimal;
+  metal: "silver" | "gold" | "platinum" | null;
+  image_url: string;
+}
+
+export interface TransactionResponse {
+  transaction_id: number;
+  amount: number;
+  stamp: ApiStamp | null;
 }

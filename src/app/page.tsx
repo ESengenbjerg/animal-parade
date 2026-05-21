@@ -41,14 +41,28 @@ function HomeContent() {
       // Attach stamp in API response to URL
       // Redirect to attraction page
       setTimeout(() => {
+        // OLD API RESPONSE
+        // router.push(
+        //   `/animal?stamp=${encodeURIComponent(
+        //     JSON.stringify({
+        //       animal: result.stamp.stamptype.animal,
+        //       metal: result.stamp.stamptype?.metal ?? undefined,
+        //       image_url: result.stamp.stamptype?.image_url ?? undefined,
+        //     }),
+        //   )}`,
+        // );
+
+        // NEW API RESPONSE
+        // TO DO: Handle a null stamp.
+        // If (no stamp) -> modal with information: "3 min hasn't passed until the last time you received a stamp at this amusement. Get out of here!" and a Go back to Loopland button to close modal?
+        if (!result.stamp) {
+          // Ingen stamp → användaren får inte se något djur
+          router.push("/animal?nostamp=1");
+          return;
+        }
+
         router.push(
-          `/animal?stamp=${encodeURIComponent(
-            JSON.stringify({
-              animal: result.stamp.stamptype.animal,
-              metal: result.stamp.stamptype?.metal ?? undefined,
-              image_url: result.stamp.stamptype?.image_url ?? undefined,
-            }),
-          )}`,
+          `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
         );
       }, 800); // Match duration in CSS animation
     } catch (err: any) {
@@ -61,7 +75,7 @@ function HomeContent() {
       switch (code) {
         case "TOKEN_EXPIRED":
           title = "Token expired";
-          message = "Your token has expired. Please return to the Tivoli.";
+          message = "Your token has expired. Please return to Loopland.";
           break;
 
         case "INVALID_API_KEY":
@@ -76,7 +90,7 @@ function HomeContent() {
       }
       // if (err?.message === "Invalid or expired identity token") {
       //   title = "Token expired";
-      //   message = "Your token has expired. Please return to the Tivoli.";
+      //   message = "Your token has expired. Please return to Loopland.";
       // } else if (err?.message === "Invalid api_key") {
       //   title = "Invalid API key";
       //   message = "Your API key is invalid.";
@@ -129,16 +143,18 @@ function HomeContent() {
 
           {!token && (
             // <p className="text-sm text-red-700 mt-4">
-            //   <strong>ERROR! </strong> You must enter through the Tivoli to play
+            //   <strong>ERROR! </strong> You must enter through Loopland to play
             // </p>
             <div className="mt-6 flex flex-col items-center">
               <ErrorMessage
                 title="Missing token"
-                message="You must enter through the Tivoli"
+                message="You must enter through Landland"
               />
-              <BackToBtn />
             </div>
           )}
+
+          {/* Should always be visible due to <iframe> */}
+          <BackToBtn />
         </article>
       </section>
       <Modal
@@ -147,8 +163,8 @@ function HomeContent() {
         message={modalMessage}
         onClose={() => {
           setModalOpen(false);
-          // Redirect back to tivoli
-          router.push("https://frontend-main-1ac7.up.railway.app/");
+          // Redirect back to Loopland - HOW TO HANDLE THIS WITH IFRAME? Use <BackToBtn /> in modal?
+          router.push("https://loopland.se/");
         }}
       />
     </Background>

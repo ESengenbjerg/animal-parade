@@ -101,7 +101,7 @@ function AnimalContent() {
         <section className="flex flex-col justify-center items-center">
           <ErrorMessage
             title="Invalid stamp"
-            message="Sorry! Something went wrong. Please return to the Tivoli"
+            message="Sorry! Something went wrong. Please return to Loopland"
           />
           <BackToBtn />
         </section>
