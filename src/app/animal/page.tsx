@@ -67,19 +67,31 @@ function AnimalContent() {
     if (!paradeAnimal || !stamp || !introDone) return;
 
     const duration = animalSpeed[paradeAnimal];
+    const fadeTime = 800;
 
     const timer = setTimeout(() => {
       const overlay = document.getElementById("page-transition");
       overlay?.classList.add("active");
+    }, duration - fadeTime);
 
-      setTimeout(() => {
-        router.push(
-          `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
-        );
-      }, 800); // Matches duration on CSS-animation
+    const redirectTimer = setTimeout(() => {
+      router.push(
+        `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
+      );
     }, duration);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(redirectTimer);
+    };
+
+    //   setTimeout(() => {
+    //     router.push(
+    //       `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
+    //     );
+    //   }, 800); // Matches duration on CSS-animation
+    // }, duration);
+    // return () => clearTimeout(timer);
   }, [paradeAnimal, stamp, introDone, router]);
 
   // Fallback UI if not valid stamp
@@ -100,7 +112,7 @@ function AnimalContent() {
   return (
     <Background>
       <div className="h-screen flex flex-col justify-between items-center">
-        <section className="flex flex-col items-center justify-center h-full text-2xl text-black">
+        <section className="flex flex-col items-center justify-center h-1/2 text-2xl text-black">
           <h1>This is the animal page where all the animal thrives</h1>
           {!paradeAnimal && (
             <p className="text-2xl">
@@ -131,6 +143,7 @@ function AnimalContent() {
                 animationDuration: `${animalSpeed[paradeAnimal]}ms`,
                 width: "300px", // locked width for proper animation
                 height: animalHeight[paradeAnimal],
+                transform: introDone ? "none" : "translateX(-350px)",
               }}
             >
               <img
