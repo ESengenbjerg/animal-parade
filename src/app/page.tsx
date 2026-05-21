@@ -53,6 +53,8 @@ function HomeContent() {
         // );
 
         // NEW API RESPONSE
+        // TO DO: Handle a null stamp.
+        // If (no stamp) -> modal with information: "3 min hasn't passed until the last time you received a stamp at this amusement. Get out of here!" and a Go back to Loopland button to close modal?
         if (!result.stamp) {
           // Ingen stamp → användaren får inte se något djur
           router.push("/animal?nostamp=1");
@@ -148,9 +150,11 @@ function HomeContent() {
                 title="Missing token"
                 message="You must enter through the Tivoli"
               />
-              <BackToBtn />
             </div>
           )}
+
+          {/* Should always be visible due to <iframe> */}
+          <BackToBtn />
         </article>
       </section>
       <Modal
@@ -159,8 +163,8 @@ function HomeContent() {
         message={modalMessage}
         onClose={() => {
           setModalOpen(false);
-          // Redirect back to tivoli
-          router.push("https://frontend-main-1ac7.up.railway.app/");
+          // Redirect back to tivoli - HOW TO HANDLE THIS WITH IFRAME? Use <BackToBtn /> in modal?
+          router.push("https://loopland.se/");
         }}
       />
     </Background>
