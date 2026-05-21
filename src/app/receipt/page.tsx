@@ -34,7 +34,11 @@ function ReceiptContent() {
 
     // Fade in receipt
     setTimeout(() => {
-      receipt?.classList.add("opacity-100", "translate-y-0");
+      if (!receipt) return;
+
+      receipt.style.opacity = "1";
+      receipt.style.transform = "translateY(0)";
+      // receipt?.classList.add("opacity-100", "translate-y-0");
     }, 350);
   }, []);
 
