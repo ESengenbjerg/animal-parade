@@ -75,7 +75,7 @@ function HomeContent() {
       switch (code) {
         case "TOKEN_EXPIRED":
           title = "Token expired";
-          message = "Your token has expired. Please return to the Tivoli.";
+          message = "Your token has expired. Please return to Loopland.";
           break;
 
         case "INVALID_API_KEY":
@@ -90,7 +90,7 @@ function HomeContent() {
       }
       // if (err?.message === "Invalid or expired identity token") {
       //   title = "Token expired";
-      //   message = "Your token has expired. Please return to the Tivoli.";
+      //   message = "Your token has expired. Please return to Loopland.";
       // } else if (err?.message === "Invalid api_key") {
       //   title = "Invalid API key";
       //   message = "Your API key is invalid.";
@@ -143,12 +143,12 @@ function HomeContent() {
 
           {!token && (
             // <p className="text-sm text-red-700 mt-4">
-            //   <strong>ERROR! </strong> You must enter through the Tivoli to play
+            //   <strong>ERROR! </strong> You must enter through Loopland to play
             // </p>
             <div className="mt-6 flex flex-col items-center">
               <ErrorMessage
                 title="Missing token"
-                message="You must enter through the Tivoli"
+                message="You must enter through Landland"
               />
             </div>
           )}
@@ -163,7 +163,7 @@ function HomeContent() {
         message={modalMessage}
         onClose={() => {
           setModalOpen(false);
-          // Redirect back to tivoli - HOW TO HANDLE THIS WITH IFRAME? Use <BackToBtn /> in modal?
+          // Redirect back to Loopland - HOW TO HANDLE THIS WITH IFRAME? Use <BackToBtn /> in modal?
           router.push("https://loopland.se/");
         }}
       />
