@@ -41,14 +41,26 @@ function HomeContent() {
       // Attach stamp in API response to URL
       // Redirect to attraction page
       setTimeout(() => {
+        // OLD API RESPONSE
+        // router.push(
+        //   `/animal?stamp=${encodeURIComponent(
+        //     JSON.stringify({
+        //       animal: result.stamp.stamptype.animal,
+        //       metal: result.stamp.stamptype?.metal ?? undefined,
+        //       image_url: result.stamp.stamptype?.image_url ?? undefined,
+        //     }),
+        //   )}`,
+        // );
+
+        // NEW API RESPONSE
+        if (!result.stamp) {
+          // Ingen stamp → användaren får inte se något djur
+          router.push("/animal?nostamp=1");
+          return;
+        }
+
         router.push(
-          `/animal?stamp=${encodeURIComponent(
-            JSON.stringify({
-              animal: result.stamp.stamptype.animal,
-              metal: result.stamp.stamptype?.metal ?? undefined,
-              image_url: result.stamp.stamptype?.image_url ?? undefined,
-            }),
-          )}`,
+          `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
         );
       }, 800); // Match duration in CSS animation
     } catch (err: any) {
