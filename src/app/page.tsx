@@ -54,13 +54,24 @@ function HomeContent() {
 
         // NEW API RESPONSE
         // TO DO: Handle a null stamp.
+        // if (!result.stamp) {
+        //   // Ingen stamp → användaren får inte se något djur
+        //   router.push("/animal?nostamp=1");
+        //   return;
+        // }
+
         // If (no stamp) -> modal with information: "3 min hasn't passed until the last time you received a stamp at this amusement. Get out of here!" and a Go back to Loopland button to close modal?
         if (!result.stamp) {
-          // Ingen stamp → användaren får inte se något djur
-          router.push("/animal?nostamp=1");
+          setModalTitle("No stamp for you!");
+          setModalMessage(
+            "3 minutes have not passed since your last visit to this amusement. Get out of here!",
+          );
+          setModalOpen(true);
+          setLoading(false);
           return;
         }
 
+        // Valid stamp -> go to /animal
         router.push(
           `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
         );
@@ -102,8 +113,9 @@ function HomeContent() {
       setModalTitle(title);
       setModalMessage(message);
       setModalOpen(true);
+      setLoading(false);
 
-      return;
+      // return;
     }
   }
 
@@ -148,7 +160,7 @@ function HomeContent() {
             <div className="mt-6 flex flex-col items-center">
               <ErrorMessage
                 title="Missing token"
-                message="You must enter through Landland"
+                message="You must enter through Loopland"
               />
             </div>
           )}
