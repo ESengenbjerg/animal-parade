@@ -33,13 +33,13 @@ function ReceiptContent() {
     }, 50);
 
     // Fade in receipt
-    setTimeout(() => {
-      if (!receipt) return;
+    //   setTimeout(() => {
+    //     if (!receipt) return;
 
-      receipt.style.opacity = "1";
-      receipt.style.transform = "translateY(0)";
-      // receipt?.classList.add("opacity-100", "translate-y-0");
-    }, 350);
+    //     receipt.style.opacity = "1";
+    //     receipt.style.transform = "translateY(0)";
+    //     // receipt?.classList.add("opacity-100", "translate-y-0");
+    //   }, 350);
   }, []);
 
   // Fallback UI if stamp is invalid
@@ -66,9 +66,9 @@ function ReceiptContent() {
       <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
         <article
           id="receipt-card"
-          className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md
-            transition-all duration-700"
-          style={{ opacity: 0, transform: "translateY(1rem)" }}
+          className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md"
+          // transition-all duration-700"
+          // style={{ opacity: 0, transform: "translateY(1rem)" }}
         >
           <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
