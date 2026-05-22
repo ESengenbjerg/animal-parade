@@ -24,6 +24,13 @@ function AnimalContent() {
   const stamp = useStampFromQuery();
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
   const [introDone, setIntroDone] = useState(false);
+
+  // Wait until stamp is loaded
+  if (stamp === null) {
+    return null;
+  }
+
+  // Validate stamp
   const validation = validateStamp(stamp);
 
   // Page transition
@@ -44,8 +51,7 @@ function AnimalContent() {
 
   // Pick random parade animal
   useEffect(() => {
-    if (!stamp) return;
-
+    // if (!stamp) return;
     const random =
       paradeAnimals[Math.floor(Math.random() * paradeAnimals.length)];
     setParadeAnimal(random);
@@ -53,18 +59,18 @@ function AnimalContent() {
 
   // Start intro delay timer when animal is choosen
   useEffect(() => {
-    if (!paradeAnimal || !stamp) return;
+    if (!paradeAnimal) return;
 
     const timer = setTimeout(() => {
       setIntroDone(true);
     }, initialDelay);
 
     return () => clearTimeout(timer);
-  }, [paradeAnimal]);
+  }, [paradeAnimal, stamp]);
 
-  // When intro is done:
+  // When intro is done, animal animation + redirect to receipt:
   useEffect(() => {
-    if (!paradeAnimal || !stamp || !introDone) return;
+    if (!paradeAnimal || !introDone) return;
 
     const duration = animalSpeed[paradeAnimal];
     const fadeTime = 800;
@@ -93,6 +99,13 @@ function AnimalContent() {
     // }, duration);
     // return () => clearTimeout(timer);
   }, [paradeAnimal, stamp, introDone, router]);
+
+  // FIX?!
+  // const stamp = useStampFromQuery();
+
+  // if (stamp === null) {
+  //   return null;
+  // }
 
   // Fallback UI if not valid stamp
   if (!validation.valid) {
