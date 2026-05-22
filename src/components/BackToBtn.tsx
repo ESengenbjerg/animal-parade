@@ -7,7 +7,7 @@ export default function BackToBtn() {
     // <article className="w-full">
     <>
       {/* Navigate with tabs button */}
-      <Link
+      {/* <Link
         href="https://loopland.se/"
         aria-label="Go back to Loopland"
         className="w-full"
@@ -19,17 +19,17 @@ export default function BackToBtn() {
         >
           Back to Loopland
         </button>
-      </Link>
+      </Link> */}
 
       {/* Preparation for <iframe> button */}
-      {/* <button
+      <button
         onClick={() =>
-        window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*")
+          window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*")
         }
         className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition"
-        >
+      >
         Back to Loopland
-        </button> */}
+      </button>
       {/* </article> */}
     </>
   );
