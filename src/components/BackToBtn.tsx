@@ -26,7 +26,7 @@ export default function BackToBtn() {
         onClick={() =>
           window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*")
         }
-        className="px-8 py-4 text-xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition md:text-2xl"
+        className="w-full px-6 py-3 text-xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition md:px-8 md:py-4 md:text-2xl"
       >
         Back to Loopland
       </button>
