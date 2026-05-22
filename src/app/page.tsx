@@ -41,26 +41,8 @@ function HomeContent() {
       // Attach stamp in API response to URL
       // Redirect to attraction page
       setTimeout(() => {
-        // OLD API RESPONSE
-        // router.push(
-        //   `/animal?stamp=${encodeURIComponent(
-        //     JSON.stringify({
-        //       animal: result.stamp.stamptype.animal,
-        //       metal: result.stamp.stamptype?.metal ?? undefined,
-        //       image_url: result.stamp.stamptype?.image_url ?? undefined,
-        //     }),
-        //   )}`,
-        // );
-
         // NEW API RESPONSE
-        // TO DO: Handle a null stamp.
-        // if (!result.stamp) {
-        //   // Ingen stamp → användaren får inte se något djur
-        //   router.push("/animal?nostamp=1");
-        //   return;
-        // }
-
-        // If (no stamp) -> modal with information: "3 min hasn't passed until the last time you received a stamp at this amusement. Get out of here!" and a Go back to Loopland button to close modal?
+        // If (no stamp) -> modal with information:
         if (!result.stamp) {
           setModalTitle("No stamp for you!");
           setModalMessage(
@@ -99,65 +81,37 @@ function HomeContent() {
           message = "You do not have enough money.";
           break;
       }
-      // if (err?.message === "Invalid or expired identity token") {
-      //   title = "Token expired";
-      //   message = "Your token has expired. Please return to Loopland.";
-      // } else if (err?.message === "Invalid api_key") {
-      //   title = "Invalid API key";
-      //   message = "Your API key is invalid.";
-      // } else if (err?.message === "Insufficient balance") {
-      //   title = "Insufficient balance";
-      //   message = "You do not have enough balance.";
-      // }
 
       setModalTitle(title);
       setModalMessage(message);
       setModalOpen(true);
       setLoading(false);
-
-      // return;
     }
   }
 
   return (
     <Background>
-      <section className="flex flex-col items-center justify-evenly h-full text-black">
-        <article className="pb-8">
-          <h1 className="font-bold text-4xl">Welcome to the animal parade!</h1>
-          <p>
+      <section className="flex flex-col items-center justify-around h-full text-black mx-4">
+        <article className="">
+          <h1 className="text-2xl font-bold text-center md:text-4xl">
+            Welcome to the animal parade!
+          </h1>
+          <p className="text-base md:text-lg text-center px-4">
             Here you may see some exotic animals in their natural behaviour.
           </p>
-          <p>
+          <p className="text-base md:text-lg text-center px-4">
             <span className="font-extrabold">Entrance fee: </span>2 euro
           </p>
         </article>
-        <article className="pt-48 flex flex-col justify-center items-center">
-          {/* <button
-            onClick={handleStart}
-            disabled={!token || loading}
-            className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg max-w-64 bg-orange-400 hover:bg-orange-500 text-white transition"
-          >
-            {loading ? "Loading..." : "See an animal"}
-          </button> */}
-          <button
-            onClick={handleStart}
-            disabled={!token || loading}
-            aria-disabled={!token || loading}
-            className={`px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg transition
-              ${
-                !token || loading
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-orange-400 hover:bg-orange-500 text-white"
-              }`}
-          >
-            {loading ? "Loading..." : "See an animal"}
-          </button>
-
+        <div className="bg-white/70 flex items-center justify-center text-m text-center font-bold md:hidden portrait:flex landscape:hidden">
+          <p>
+            We recommend you to rotate your device to landscape for premium
+            experience
+          </p>
+        </div>
+        <article className="w-full flex flex-col justify-between items-center gap-2 landscape:gap-8 md:pt-48 md:w-1/4 md:landscape:gap-2">
           {!token && (
-            // <p className="text-sm text-red-700 mt-4">
-            //   <strong>ERROR! </strong> You must enter through Loopland to play
-            // </p>
-            <div className="mt-6 flex flex-col items-center">
+            <div className="w-full flex flex-col items-center">
               <ErrorMessage
                 title="Missing token"
                 message="You must enter through Loopland"
@@ -165,8 +119,23 @@ function HomeContent() {
             </div>
           )}
 
-          {/* Should always be visible due to <iframe> */}
-          <BackToBtn />
+          <div className="w-full flex flex-col justify-between items-center gap-2 landscape:flex-row landscape:gap-4 md:landscape:flex-col">
+            <button
+              onClick={handleStart}
+              disabled={!token || loading}
+              aria-disabled={!token || loading}
+              className={`w-full px-6 py-3 text-xl md:px-8 md:py-4 md:text-2xl font-semibold rounded-xl shadow-lg transition
+              ${
+                !token || loading
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-orange-400 hover:bg-orange-500 text-white"
+              }`}
+            >
+              {loading ? "Loading..." : "See an animal"}
+            </button>
+
+            <BackToBtn />
+          </div>
         </article>
       </section>
       <Modal
