@@ -58,20 +58,20 @@ function ReceiptContent() {
       <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black mx-4">
         <article
           id="receipt-card"
-          className="bg-white rounded-xl border border-gray-300 shadow-2xl p-4 w-[95%] h-[70%] max-w-md md:p-8 md_max-w-lg"
+          className="bg-white rounded-xl border border-gray-300 shadow-2xl p-4 w-[95%] h-[90%] max-w-md md:p-8 md_max-w-lg"
         >
-          <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
+          <h1 className="text-2xl font-bold mb-6 md:4-xl">Your Receipt</h1>
 
-          <p className="text-xl mb-4">
+          <p className="text:base md:text-xl mb-4">
             <span className="font-semibold">Entrance fee:</span> 2 euro
           </p>
 
           {stamp ? (
             <div className="mb-8">
-              <p className="text-xl mb-2">
+              <p className="text-base md:text-xl mb-2">
                 <span className="font-semibold">Stamp received:</span>
               </p>
-              <p className="text-xl mb-4">
+              <p className="text-base md:text-xl mb-4">
                 {stamp.metal && <span>{stamp.metal} </span>}
                 {stamp.animal}
               </p>
@@ -93,7 +93,7 @@ function ReceiptContent() {
           )}
         </article>
 
-        <article className="h-[30%] flex justify-center items-center">
+        <article className="h-[10%] flex justify-center items-center">
           <BackToBtn />
         </article>
       </section>
