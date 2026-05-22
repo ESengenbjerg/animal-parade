@@ -58,9 +58,7 @@ function ReceiptContent() {
       <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black mx-4">
         <article
           id="receipt-card"
-          className="bg-white rounded-xl border border-gray-300 shadow-2xl p-4 w-[95%] max-w-md md:p-8 md_max-w-lg"
-          // transition-all duration-700"
-          // style={{ opacity: 0, transform: "translateY(1rem)" }}
+          className="bg-white rounded-xl border border-gray-300 shadow-2xl p-4 w-[95%] h-[70%] max-w-md md:p-8 md_max-w-lg"
         >
           <h1 className="text-4xl font-bold mb-6">Your Receipt</h1>
 
@@ -95,7 +93,7 @@ function ReceiptContent() {
           )}
         </article>
 
-        <article className="mt-6 mb-6">
+        <article className="h-[30%] flex justify-center items-center">
           <BackToBtn />
         </article>
       </section>
