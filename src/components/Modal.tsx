@@ -24,9 +24,17 @@ export default function Modal({
         <h2 className="text-xl font-bold mb-4 md:text-2xl">{title}</h2>
         <p className="mb-6 text-sm md:text-base">{message}</p>
 
-        <button
+        {/* <button
           onClick={onClose}
           className="px-6 py-3 bg-orange-400 hover:bg-orange-500 text-white rounded-lg font-semibold w-40"
+        >
+          OK
+        </button> */}
+        <button
+          onClick={() =>
+            window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*")
+          }
+          className="px-6 py-3 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition"
         >
           OK
         </button>
