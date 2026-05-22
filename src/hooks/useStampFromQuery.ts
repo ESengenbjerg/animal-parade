@@ -28,7 +28,7 @@ export function useStampFromQuery(): ParadeStamp | null {
   useEffect(() => {
     const raw = searchParams.get("stamp");
     if (!raw) {
-      router.replace("/");
+      //   router.replace("/");
       return;
     }
 
