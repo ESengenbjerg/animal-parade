@@ -31,15 +31,6 @@ function ReceiptContent() {
     setTimeout(() => {
       overlay?.classList.remove("active");
     }, 50);
-
-    // Fade in receipt
-    //   setTimeout(() => {
-    //     if (!receipt) return;
-
-    //     receipt.style.opacity = "1";
-    //     receipt.style.transform = "translateY(0)";
-    //     // receipt?.classList.add("opacity-100", "translate-y-0");
-    //   }, 350);
   }, []);
 
   // Fallback UI if stamp is invalid
@@ -51,11 +42,12 @@ function ReceiptContent() {
           message="We could not find your stamp. Please return to Loopland"
         />
         <article className="mt-12">
-          <Link href="https://loopland.se/">
+          <BackToBtn />
+          {/* <Link href="https://loopland.se/">
             <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-              Go back to Loopland
+            Go back to Loopland
             </button>
-          </Link>
+            </Link> */}
         </article>
       </Background>
     );
@@ -63,10 +55,10 @@ function ReceiptContent() {
 
   return (
     <Background>
-      <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black">
+      <section className="flex flex-col items-center justify-center h-full text-center text-2xl text-black mx-4">
         <article
           id="receipt-card"
-          className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md"
+          className="bg-white rounded-xl shadow-2xl p-4 w-[95%] max-w-md md:p-8 md_max-w-lg"
           // transition-all duration-700"
           // style={{ opacity: 0, transform: "translateY(1rem)" }}
         >
@@ -103,7 +95,9 @@ function ReceiptContent() {
           )}
         </article>
 
-        <BackToBtn />
+        <article className="mt-12">
+          <BackToBtn />
+        </article>
       </section>
     </Background>
   );
