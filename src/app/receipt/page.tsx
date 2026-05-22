@@ -82,7 +82,7 @@ function ReceiptContent() {
                 <div className="flex justify-center">
                   <img
                     src={stamp.image_url}
-                    alt={stamp.metal && stamp.animal}
+                    alt={`${stamp.metal ? stamp.metal + " " : ""}${stamp.animal}`}
                     className="w-40 h-40 object-contain border border-gray-300 rounded-lg shadow-sm"
                   />
                 </div>

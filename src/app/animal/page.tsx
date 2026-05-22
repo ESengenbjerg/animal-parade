@@ -95,11 +95,25 @@ function AnimalContent() {
   // FIX?!
   // const stamp = useStampFromQuery();
 
-  if (stamp === null) {
+  if (stamp === undefined) {
     return (
       <Background>
         <section className="flex flex-col items-center justify-center h-screen text-white">
           <p>Loading animal...</p>
+        </section>
+      </Background>
+    );
+  }
+
+  if (stamp === null) {
+    return (
+      <Background>
+        <section className="flex flex-col justify-center items-center gap-4 px-4 text-center">
+          <ErrorMessage
+            title="Invalid stamp"
+            message="Sorry! Something went wrong. Please return to Loopland"
+          />
+          <BackToBtn />
         </section>
       </Background>
     );
