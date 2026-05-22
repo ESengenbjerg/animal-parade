@@ -64,7 +64,7 @@ function HomeContent() {
         if (!result.stamp) {
           setModalTitle("No stamp for you!");
           setModalMessage(
-            "3 minutes have not passed since your last visit to this amusement. Get out of here!",
+            "Oh? So you wanted another stamp? 3 minutes have not passed since your last visit to this amusement. GET OUT OF HERE!",
           );
           setModalOpen(true);
           setLoading(false);
