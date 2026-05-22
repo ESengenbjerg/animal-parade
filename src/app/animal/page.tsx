@@ -98,7 +98,7 @@ function AnimalContent() {
   if (!validation.valid) {
     return (
       <Background>
-        <section className="flex flex-col justify-center items-center">
+        <section className="flex flex-col justify-center items-center gap-4 px-4 text-center">
           <ErrorMessage
             title="Invalid stamp"
             message="Sorry! Something went wrong. Please return to Loopland"
@@ -112,17 +112,17 @@ function AnimalContent() {
   return (
     <Background>
       <div className="h-screen flex flex-col justify-between items-center">
-        <section className="flex flex-col items-center justify-center h-1/2 text-2xl text-black">
+        <section className="flex flex-col items-center justify-center h-1/2 text-center text-black text-base md:text-2xl px-4">
           <h1>This is the animal page where all the animal thrives</h1>
           {!paradeAnimal && (
-            <p className="text-2xl">
+            <p className="text-base md:text-2xl text-center">
               We are currently looking for your animal...
             </p>
           )}
 
           {paradeAnimal && (
             <>
-              <h2 className="text-3xl font-bold mb-8">
+              <h2 className="text:2xl md:text-3xl font-bold mb-4 md:mb-8">
                 You got a {paradeAnimal}!
               </h2>
 
@@ -132,16 +132,19 @@ function AnimalContent() {
             </>
           )}
         </section>
-        {/* This is the section where the animals moves */}
-        <section className="flex items-end justify-end h-1/3 w-screen overflow-x-hidden">
+        {/* This is the section where the animals moves  TRY w-full instead of w-screen */}
+        <section className="flex items-end justify-end h-1/3 w-full overflow-x-hidden landscape:h-1/2 md:landscape:h-1/3">
           {paradeAnimal && (
             <div
-              className={`absolute left-0 flex items-end justify-start overflow-visible animal-wrapper animate-walk  ${
-                introDone ? "animate-running" : "animate-paused"
-              }`}
+              // Test sm:w-[250px] md:w-[300px] instead of width: "300px" for better mobile experience
+              className={`absolute left-0 flex items-end justify-start overflow-visible 
+                sm:w-62.5 md:w-75
+                animal-wrapper animate-walk  ${
+                  introDone ? "animate-running" : "animate-paused"
+                }`}
               style={{
                 animationDuration: `${animalSpeed[paradeAnimal]}ms`,
-                width: "300px", // locked width for proper animation
+                // width: "300px", // locked width for proper animation
                 height: animalHeight[paradeAnimal],
                 transform: introDone ? "none" : "translateX(-350px)",
               }}

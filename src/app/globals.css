@@ -65,7 +65,7 @@ body {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.8s ease;
-  z-index: 9999;
+  z-index: 40;
 }
 
 .page-transition.active {
