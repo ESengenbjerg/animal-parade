@@ -91,7 +91,7 @@ function HomeContent() {
 
   return (
     <Background>
-      <section className="flex flex-col items-center justify-around h-full text-black mx-4">
+      <section className="flex flex-col items-center justify-around h-full text-black mx-4 border-8 border-red-600">
         <article className="">
           <h1 className="text-2xl font-bold text-center md:text-4xl">
             Welcome to the animal parade!
