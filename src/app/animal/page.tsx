@@ -25,23 +25,6 @@ function AnimalContent() {
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
   const [introDone, setIntroDone] = useState(false);
 
-  // Wait until stamp is loaded
-  // if (stamp === null) {
-  //   return null;
-  // }
-  if (stamp === null) {
-    return (
-      <Background>
-        <section className="flex flex-col items-center justify-center h-screen text-white">
-          <p>Loading animal...</p>
-        </section>
-      </Background>
-    );
-  }
-
-  // Validate stamp
-  const validation = validateStamp(stamp);
-
   // Page transition
   useEffect(() => {
     const overlay = document.getElementById("page-transition");
@@ -60,7 +43,7 @@ function AnimalContent() {
 
   // Pick random parade animal
   useEffect(() => {
-    // if (!stamp) return;
+    if (!stamp) return;
     const random =
       paradeAnimals[Math.floor(Math.random() * paradeAnimals.length)];
     setParadeAnimal(random);
@@ -112,9 +95,17 @@ function AnimalContent() {
   // FIX?!
   // const stamp = useStampFromQuery();
 
-  // if (stamp === null) {
-  //   return null;
-  // }
+  if (stamp === null) {
+    return (
+      <Background>
+        <section className="flex flex-col items-center justify-center h-screen text-white">
+          <p>Loading animal...</p>
+        </section>
+      </Background>
+    );
+  }
+
+  const validation = validateStamp(stamp);
 
   // Fallback UI if not valid stamp
   if (!validation.valid) {
