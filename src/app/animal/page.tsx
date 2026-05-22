@@ -26,8 +26,17 @@ function AnimalContent() {
   const [introDone, setIntroDone] = useState(false);
 
   // Wait until stamp is loaded
+  // if (stamp === null) {
+  //   return null;
+  // }
   if (stamp === null) {
-    return null;
+    return (
+      <Background>
+        <section className="flex flex-col items-center justify-center h-screen text-white">
+          <p>Loading animal...</p>
+        </section>
+      </Background>
+    );
   }
 
   // Validate stamp
