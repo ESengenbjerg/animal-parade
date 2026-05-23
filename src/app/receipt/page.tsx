@@ -58,26 +58,27 @@ function ReceiptContent() {
       <section className="flex flex-col items-center justify-between h-full text-center text-2xl text-black mx-4">
         <article
           id="receipt-card"
-          className="bg-white rounded-xl border border-gray-300 shadow-2xl mt-1 p-4 w-[95%] h-fit max-w-md md:p-8 md_max-w-lg"
+          className="bg-white rounded-xl border border-gray-300 shadow-2xl mt-1 p-4 w-[95%] h-fit max-w-md md:p-8 md_max-w-l md:mt-4"
         >
           <h1 className="text-2xl font-bold mb-6 md:4-xl">Your Receipt</h1>
 
-          <p className="text-base md:text-xl mb-4">
-            <span className="font-semibold">Entrance fee:</span> 2 euro
-          </p>
-
           {stamp ? (
-            <div className="mb-8">
-              <p className="text-base md:text-xl mb-2">
-                <span className="font-semibold">Stamp received:</span>
-              </p>
-              <p className="text-base md:text-xl mb-4">
-                {stamp.metal && <span>{stamp.metal} </span>}
-                {stamp.animal}
-              </p>
+            <div className="landscape:flex md:landscape:flex-col">
+              <div>
+                <p className="text-base md:text-xl mb-4">
+                  <span className="font-semibold">Entrance fee:</span> 2 euro
+                </p>
+                <p className="text-base md:text-xl mb-2">
+                  <span className="font-semibold">Stamp received:</span>
+                </p>
+                <p className="text-base md:text-xl mb-4">
+                  {stamp.metal && <span>{stamp.metal} </span>}
+                  {stamp.animal}
+                </p>
+              </div>
 
               {stamp.image_url ? (
-                <div className="flex justify-center">
+                <div className="flex justify-center mb-8">
                   <img
                     src={stamp.image_url}
                     alt={`${stamp.metal ? stamp.metal + " " : ""}${stamp.animal}`}
