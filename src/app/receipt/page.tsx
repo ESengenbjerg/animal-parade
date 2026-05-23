@@ -62,7 +62,7 @@ function ReceiptContent() {
         >
           <h1 className="text-2xl font-bold mb-6 md:4-xl">Your Receipt</h1>
 
-          <p className="text:base md:text-xl mb-4">
+          <p className="text-base md:text-xl mb-4">
             <span className="font-semibold">Entrance fee:</span> 2 euro
           </p>
 
