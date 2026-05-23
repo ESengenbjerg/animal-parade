@@ -63,7 +63,7 @@ function ReceiptContent() {
           <h1 className="text-2xl font-bold mb-6 md:4-xl">Your Receipt</h1>
 
           {stamp ? (
-            <div className="landscape:flex md:landscape:flex-col">
+            <div className="landscape:flex landscape:justify-around landscape:items-center md:landscape:flex-col">
               <div>
                 <p className="text-base md:text-xl mb-4">
                   <span className="font-semibold">Entrance fee:</span> 2 euro
@@ -71,7 +71,7 @@ function ReceiptContent() {
                 <p className="text-base md:text-xl mb-2">
                   <span className="font-semibold">Stamp received:</span>
                 </p>
-                <p className="text-base md:text-xl mb-4">
+                <p className="text-base md:text-xl mb-4 landscape:mb-2 md:landscape:mb-4">
                   {stamp.metal && <span>{stamp.metal} </span>}
                   {stamp.animal}
                 </p>
