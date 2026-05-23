@@ -60,7 +60,9 @@ function ReceiptContent() {
           id="receipt-card"
           className="bg-white rounded-xl border border-gray-300 shadow-2xl mt-1 p-4 w-[95%] h-fit max-w-md md:p-8 md_max-w-l md:mt-4"
         >
-          <h1 className="text-2xl font-bold mb-6 md:4-xl">Your Receipt</h1>
+          <h1 className="text-2xl font-bold mb-6 landscape:mb-2 md:landscape:4-xl">
+            Your Receipt
+          </h1>
 
           {stamp ? (
             <div className="landscape:flex landscape:justify-around landscape:items-center md:landscape:flex-col">
@@ -78,7 +80,7 @@ function ReceiptContent() {
               </div>
 
               {stamp.image_url ? (
-                <div className="flex justify-center mb-8">
+                <div className="flex justify-center mb-8 landscape:mb-2 md:landscape:mb-8">
                   <img
                     src={stamp.image_url}
                     alt={`${stamp.metal ? stamp.metal + " " : ""}${stamp.animal}`}
