@@ -77,7 +77,7 @@ function ReceiptContent() {
               </p>
 
               {stamp.image_url ? (
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-center">
                   <img
                     src={stamp.image_url}
                     alt={`${stamp.metal ? stamp.metal + " " : ""}${stamp.animal}`}
@@ -93,7 +93,7 @@ function ReceiptContent() {
           )}
         </article>
 
-        <article className="h-[15%] flex justify-center items-center">
+        <article className="h-full flex justify-end items-center mb-4">
           <BackToBtn />
         </article>
       </section>
