@@ -140,7 +140,6 @@ function AnimalContent() {
     <Background>
       <div className="h-screen flex flex-col justify-between items-center">
         <section className="flex flex-col items-center justify-center h-1/2 text-center text-black text-base md:text-2xl px-4">
-          <h1>This is the animal page where all the animal thrives</h1>
           {!paradeAnimal && (
             <p className="text-base md:text-2xl text-center">
               We are currently looking for your animal...
