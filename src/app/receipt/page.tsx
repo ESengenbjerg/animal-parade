@@ -93,7 +93,7 @@ function ReceiptContent() {
           )}
         </article>
 
-        <article className="h-full flex justify-end items-center mb-4">
+        <article className="h-full flex justify-end items-end mb-4">
           <BackToBtn />
         </article>
       </section>
