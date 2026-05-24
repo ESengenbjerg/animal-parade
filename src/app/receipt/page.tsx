@@ -6,10 +6,10 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 function ReceiptContent() {
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
   // Parse stamp from query
   const stamp = useStampFromQuery();
@@ -98,5 +98,9 @@ function ReceiptContent() {
 }
 
 export default function ReceiptPage() {
-  return <ReceiptContent />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReceiptContent />
+    </Suspense>
+  );
 }

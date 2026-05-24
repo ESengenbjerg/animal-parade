@@ -4,7 +4,7 @@ import Background from "@/components/Background";
 import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { mapError } from "@/lib/error";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useIdentityToken } from "@/hooks/useIdentityToken";
 import { startTransaction } from "@/lib/api/centralbank";
 import Modal from "@/components/Modal";
@@ -149,5 +149,9 @@ function HomeContent() {
 }
 
 export default function Home() {
-  return <HomeContent />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
+  );
 }
