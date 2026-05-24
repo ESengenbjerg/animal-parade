@@ -143,7 +143,12 @@ function HomeContent() {
           </div>
         </article>
       </section>
-      <Modal open={modalOpen} title={modalTitle} message={modalMessage} />
+      <Modal
+        open={modalOpen}
+        title={modalTitle}
+        message={modalMessage}
+        onClose={() => setModalOpen(false)}
+      />
     </Background>
   );
 }

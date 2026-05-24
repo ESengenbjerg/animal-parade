@@ -1,20 +1,74 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 export default function Modal({
   open,
   title,
   message,
+  onClose,
 }: {
   open: boolean;
   title: string;
   message: string;
+  onClose: () => void;
 }) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Close modal with ESC
+  useEffect(() => {
+    if (!open) return;
+
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open, onClose]);
+
+  // Focus trap
+  useEffect(() => {
+    if (!open || !modalRef.current) return;
+
+    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    function trap(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    document.addEventListener("keydown", trap);
+    first?.focus();
+
+    return () => document.removeEventListener("keydown", trap);
+  }, [open]);
+
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-50">
       {/* Removed bg-gray-500/20 */}
       <div
+        ref={modalRef}
         className="flex flex-col justify-center items-center
       bg-white text-black rounded-xl shadow-xl text-center p-4 m-8 w-full max-w-[90%]
       landscape:p-8 landscape:mx-20
