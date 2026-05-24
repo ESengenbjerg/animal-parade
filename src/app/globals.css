@@ -35,7 +35,8 @@ body {
     /* transform: translateX(-105vw); */
     /* transform: translateX(-350px); */
     /* transform: translateX(-250px); */
-    transform: translateX(-150px);
+    /* transform: translateX(-150px); */
+    transform: translateX(var(--endX));
   }
 }
 

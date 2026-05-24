@@ -5,7 +5,7 @@ import Background from "@/components/Background";
 import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -24,6 +24,8 @@ function AnimalContent() {
   const stamp = useStampFromQuery();
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
   const [introDone, setIntroDone] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [animalWidth, setAnimalWidth] = useState(0);
 
   // Page transition
   useEffect(() => {
@@ -60,6 +62,24 @@ function AnimalContent() {
     return () => clearTimeout(timer);
   }, [paradeAnimal, stamp]);
 
+  // Measure animal width when image loads
+  useEffect(() => {
+    if (!imgRef.current) return;
+
+    const handleLoad = () => {
+      const width = imgRef.current?.getBoundingClientRect().width ?? 0;
+      setAnimalWidth(width);
+    };
+
+    const img = imgRef.current;
+    img.addEventListener("load", handleLoad);
+
+    // If cached
+    if (img.complete) handleLoad();
+
+    return () => img.removeEventListener("load", handleLoad);
+  }, [paradeAnimal]);
+
   // When intro is done, animal animation + redirect to receipt:
   useEffect(() => {
     if (!paradeAnimal || !introDone) return;
@@ -82,19 +102,9 @@ function AnimalContent() {
       clearTimeout(timer);
       clearTimeout(redirectTimer);
     };
-
-    //   setTimeout(() => {
-    //     router.push(
-    //       `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
-    //     );
-    //   }, 800); // Matches duration on CSS-animation
-    // }, duration);
-    // return () => clearTimeout(timer);
   }, [paradeAnimal, stamp, introDone, router]);
 
-  // FIX?!
-  // const stamp = useStampFromQuery();
-
+  // Fallback to avoid crash
   if (stamp === undefined) {
     return (
       <Background>
@@ -105,6 +115,7 @@ function AnimalContent() {
     );
   }
 
+  // Fallback to avoid crash
   if (stamp === null) {
     return (
       <Background>
@@ -119,6 +130,7 @@ function AnimalContent() {
     );
   }
 
+  // Guard
   const validation = validateStamp(stamp);
 
   // Fallback UI if not valid stamp
@@ -135,6 +147,9 @@ function AnimalContent() {
       </Background>
     );
   }
+
+  // Define end position in animation of animal
+  const endX = -(animalWidth + 10); // 10px margin
 
   return (
     <Background>
@@ -162,20 +177,19 @@ function AnimalContent() {
         <section className="flex items-end justify-end h-1/3 w-full overflow-x-hidden landscape:h-1/2 md:landscape:h-1/3">
           {paradeAnimal && (
             <div
-              // Test sm:w-[250px] md:w-[300px] instead of width: "300px" for better mobile experience
-              className={`absolute left-0 flex items-end justify-start overflow-visible 
-                sm:w-62.5 md:w-75
+              className={`absolute left-0 flex items-end justify-start 
                 animal-wrapper animate-walk  ${
                   introDone ? "animate-running" : "animate-paused"
                 }`}
               style={{
                 animationDuration: `${animalSpeed[paradeAnimal]}ms`,
-                // width: "300px", // locked width for proper animation
                 height: animalHeight[paradeAnimal],
-                transform: introDone ? "none" : "translateX(-350px)",
+                // Send endX to CSS
+                ["--endX" as any]: `${endX}px`,
               }}
             >
               <img
+                ref={imgRef}
                 src={`/${paradeAnimal}.png`}
                 alt={paradeAnimal}
                 className="h-full w-auto object-left"
