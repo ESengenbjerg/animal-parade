@@ -75,6 +75,45 @@ export const animalHeight: Record<Animal, string> = {
   turtle: "16vh",
 };
 
+// Animal facts
+export const ANIMAL_FACTS: Record<Animal, string[]> = {
+  lion: [
+    "Lions can nap up to 20 hours a day. Respect.",
+    "A lion's roar can be heard from 8 km away.",
+    "Lions don't chase prey for long - they prefer ambush.",
+    "Male lions actually do less hunting than females.",
+    "A lion can sprint 80 km/h… for about 3 seconds.",
+  ],
+  zebra: [
+    "No two zebras have the same stripe pattern.",
+    "Zebras can sleep standing up. Efficiency king.",
+    "A zebra's kick can break a lion's jaw.",
+    "Zebras are surprisingly good swimmers.",
+    "Their stripes confuse predators during motion.",
+  ],
+  peacock: [
+    "Peacocks are actually male - females are peahens.",
+    "Their feathers aren't blue - it's light refraction.",
+    "Peacocks can fly short distances despite the drama.",
+    "They shake their feathers at 26 times per second.",
+    "A peacock's tail can be 60% of its body length.",
+  ],
+  penguin: [
+    "Penguins propose with pebbles. Romantic icons.",
+    "They can drink saltwater thanks to special glands.",
+    "Penguins can jump 2 meters straight up.",
+    "They have knees - they're just hidden.",
+    "Penguins mate for life (most of the time).",
+  ],
+  turtle: [
+    "Turtles have existed longer than dinosaurs.",
+    "Some turtles breathe through their butts. Yes.",
+    "They can live over 100 years.",
+    "Turtles are slow on land but fast in water.",
+    "Their shells have nerve endings - they feel touch.",
+  ],
+};
+
 // Frontend stamp
 export interface ParadeStamp {
   animal: StampAnimal;

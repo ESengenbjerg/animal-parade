@@ -5,7 +5,7 @@ import Background from "@/components/Background";
 import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -16,8 +16,15 @@ import {
   stampAnimals,
   validMetals,
   animalHeight,
+  ANIMAL_FACTS,
 } from "@/lib/api/types";
 import Link from "next/link";
+
+function getRandomFact(animal: Animal) {
+  const facts = ANIMAL_FACTS[animal];
+  const index = Math.floor(Math.random() * facts.length);
+  return facts[index];
+}
 
 function AnimalContent() {
   const router = useRouter();
@@ -61,6 +68,12 @@ function AnimalContent() {
       paradeAnimals[Math.floor(Math.random() * paradeAnimals.length)];
     setParadeAnimal(random);
   }, [stamp]);
+
+  // Get random animal fact
+  const fact = useMemo(
+    () => (paradeAnimal ? getRandomFact(paradeAnimal) : null),
+    [paradeAnimal],
+  );
 
   // Start intro delay timer when animal is choosen
   useEffect(() => {
@@ -174,12 +187,18 @@ function AnimalContent() {
 
           {paradeAnimal && (
             <>
-              <h2 className="text:2xl md:text-3xl font-bold mb-4 md:mb-8">
+              <h2 className="text:2xl md:text-3xl font-bold mb-1 md:mb-2">
                 You got a {paradeAnimal}!
               </h2>
+              {fact && (
+                <p className="text-center text-base font-medium text-gray-800 mb-4 md:mb-8">
+                  <strong>Fact: </strong>
+                  {fact}
+                </p>
+              )}
 
               <p className={!introDone ? "opacity-100" : "fade-out-text"}>
-                The animal starts to appear... be patient!
+                The {paradeAnimal} starts to appear... be patient!
               </p>
             </>
           )}
