@@ -39,7 +39,7 @@ export interface ApiError {
 }
 
 // Parade animals:
-export type Animals = "lion" | "zebra" | "peacock" | "penguin" | "turtle";
+// export type Animals = "lion" | "zebra" | "peacock" | "penguin" | "turtle";
 
 export const paradeAnimals = [
   "lion",

@@ -1,11 +1,10 @@
 "use client";
-export const dynamic = "force-dynamic";
 
 import Background from "@/components/Background";
 import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter } from "next/navigation";
 import {
@@ -229,9 +228,5 @@ function AnimalContent() {
 }
 
 export default function AnimalPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AnimalContent />
-    </Suspense>
-  );
+  return <AnimalContent />;
 }

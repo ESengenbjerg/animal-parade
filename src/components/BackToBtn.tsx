@@ -11,6 +11,7 @@ export default function BackToBtn({ tokenValid }: { tokenValid?: boolean }) {
         onClick={() =>
           window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*")
         }
+        type="button"
         className={`w-full px-6 py-3 text-xl font-semibold rounded-xl shadow-lg text-white transition md:px-8 md:py-4 md:text-2xl ${colorClasses}`}
       >
         Back to Loopland

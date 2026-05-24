@@ -4,12 +4,10 @@ export default function Modal({
   open,
   title,
   message,
-  onClose,
 }: {
   open: boolean;
   title: string;
   message: string;
-  onClose: () => void;
 }) {
   if (!open) return null;
 

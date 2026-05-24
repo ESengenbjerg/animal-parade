@@ -1,6 +1,6 @@
 "use client";
 
-export default function ErrorBox({
+export default function ErrorMessage({
   title = "Error",
   message,
 }: {
