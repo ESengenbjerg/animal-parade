@@ -1,5 +1,4 @@
 "use client";
-// Show/Hide error messages
 
 export default function ErrorBox({
   title = "Error",

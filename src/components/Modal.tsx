@@ -15,7 +15,7 @@ export default function Modal({
 
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-50">
-      {/* Removed bg-gray-500/20 backdrop-blur-md */}
+      {/* Removed bg-gray-500/20 */}
       <div
         className="flex flex-col justify-center items-center
       bg-white text-black rounded-xl shadow-xl text-center p-4 m-8 w-full max-w-[90%]

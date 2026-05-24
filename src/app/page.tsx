@@ -152,8 +152,6 @@ function HomeContent() {
         message={modalMessage}
         onClose={() => {
           setModalOpen(false);
-          // Redirect back to Loopland - HOW TO HANDLE THIS WITH IFRAME? Use <BackToBtn /> in modal?
-          router.push("https://loopland.se/");
         }}
       />
     </Background>
