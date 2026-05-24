@@ -141,7 +141,8 @@ function HomeContent() {
               {loading ? "Loading..." : "See an animal"}
             </button>
 
-            <BackToBtn />
+            {/* <BackToBtn /> */}
+            <BackToBtn tokenValid={!!token && !loading} />
           </div>
         </article>
       </section>
