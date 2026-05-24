@@ -6,9 +6,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import type { ParadeStamp } from "@/lib/api/types";
-import Link from "next/link";
+import { Suspense, useEffect } from "react";
 
 function ReceiptContent() {
   const searchParams = useSearchParams();
@@ -22,7 +20,7 @@ function ReceiptContent() {
   // Fade in effects
   useEffect(() => {
     const overlay = document.getElementById("page-transition");
-    const receipt = document.getElementById("receipt-card");
+    // const receipt = document.getElementById("receipt-card");
 
     // Start on black page
     overlay?.classList.add("active");
@@ -43,11 +41,6 @@ function ReceiptContent() {
         />
         <article className="mt-12">
           <BackToBtn />
-          {/* <Link href="https://loopland.se/">
-            <button className="px-8 py-4 text-2xl font-semibold rounded-xl shadow-lg bg-orange-400 hover:bg-orange-500 text-white transition">
-            Go back to Loopland
-            </button>
-            </Link> */}
         </article>
       </Background>
     );
@@ -58,7 +51,7 @@ function ReceiptContent() {
       <section className="flex flex-col items-center justify-between h-full text-center text-2xl text-black mx-4">
         <article
           id="receipt-card"
-          className="bg-white rounded-xl border border-gray-300 shadow-2xl mt-1 p-4 w-[95%] h-fit max-w-md md:p-8 md_max-w-l md:mt-4"
+          className="bg-white rounded-xl border border-gray-300 shadow-2xl mt-1 p-4 w-[95%] h-fit max-w-md md:p-8 md:max-w-xl md:mt-4"
         >
           <h1 className="text-2xl font-bold mb-6 landscape:mb-2 md:landscape:4-xl">
             Your Receipt

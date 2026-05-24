@@ -1,30 +1,12 @@
 "use client";
 
-import Link from "next/link";
-
 export default function BackToBtn({ tokenValid }: { tokenValid?: boolean }) {
   const colorClasses = tokenValid
     ? "bg-orange-700 hover:bg-orange-800 text-white" // darker for Cancel
     : "bg-orange-400 hover:bg-orange-500 text-white"; // default CTA
   return (
-    // <article className="w-full">
     <>
-      {/* Navigate with tabs button */}
-      {/* <Link
-        href="https://loopland.se/"
-        aria-label="Go back to Loopland"
-        className="w-full"
-      >
-        <button
-          role="link"
-          className="w-full px-6 py-3 md:px-8 md:py-4 text-xl font-semibold rounded-xl shadow-lg md:text-2xl
-          bg-orange-400 hover:bg-orange-500 text-white transition"
-        >
-          Back to Loopland
-        </button>
-      </Link> */}
-
-      {/* Preparation for <iframe> button */}
+      {/* <iframe> button */}
       <button
         onClick={() =>
           window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*")
@@ -33,7 +15,6 @@ export default function BackToBtn({ tokenValid }: { tokenValid?: boolean }) {
       >
         Back to Loopland
       </button>
-      {/* </article> */}
     </>
   );
 }

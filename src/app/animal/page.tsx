@@ -7,21 +7,17 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
-  ParadeStamp,
   Animal,
   paradeAnimals,
   animalSpeed,
-  stampAnimals,
-  validMetals,
   animalHeight,
-  ANIMAL_FACTS,
+  animalFacts,
 } from "@/lib/api/types";
-import Link from "next/link";
 
 function getRandomFact(animal: Animal) {
-  const facts = ANIMAL_FACTS[animal];
+  const facts = animalFacts[animal];
   const index = Math.floor(Math.random() * facts.length);
   return facts[index];
 }

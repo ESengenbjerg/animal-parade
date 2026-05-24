@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   ApiStamp,
   ParadeStamp,
@@ -25,35 +25,6 @@ function isParadeStamp(value: unknown): value is ParadeStamp {
   return hasValidAnimal && hasValidMetal;
 }
 
-// export function useStampFromQuery(): ParadeStamp | null {
-//   const searchParams = useSearchParams();
-//   const router = useRouter();
-//   const [stamp, setStamp] = useState<ParadeStamp | null>(null);
-
-//   useEffect(() => {
-//     const raw = searchParams.get("stamp");
-//     if (!raw) {
-//       //   router.replace("/");
-//       return;
-//     }
-
-//     try {
-//       const parsed = JSON.parse(raw);
-
-//       if (!isParadeStamp(parsed)) {
-//         router.replace("/");
-//         return;
-//       }
-
-//       setStamp(parsed);
-//     } catch (err) {
-//       console.error("Failed to parse stamp:", err);
-//       router.replace("/");
-//     }
-//   }, [searchParams, router]);
-
-//   return stamp;
-// }
 export function useStampFromQuery() {
   const searchParams = useSearchParams();
   const [stamp, setStamp] = useState<ApiStamp | null | undefined>(undefined);

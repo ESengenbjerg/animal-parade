@@ -32,12 +32,6 @@ export interface Stamp {
 
 export const validMetals = ["silver", "gold", "platinum"] as const;
 
-// Response from POST /transactions
-// export interface TransactionResponse {
-//   id: number;
-//   stamp: Stamp;
-// }
-
 // Error from API
 export interface ApiError {
   message: string;
@@ -76,7 +70,7 @@ export const animalHeight: Record<Animal, string> = {
 };
 
 // Animal facts
-export const ANIMAL_FACTS: Record<Animal, string[]> = {
+export const animalFacts: Record<Animal, string[]> = {
   lion: [
     "Lions can nap up to 20 hours a day. Respect.",
     "A lion's roar can be heard from 8 km away.",
@@ -120,8 +114,6 @@ export interface ParadeStamp {
   metal?: "silver" | "gold" | "platinum";
   image_url?: string;
 }
-
-// NEW API RESPONSE
 
 // Stamp returned directly from Centralbank API
 export interface ApiStamp {

@@ -1,14 +1,14 @@
 "use client";
-import Image from "next/image";
+
 import Background from "@/components/Background";
 import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { mapError } from "@/lib/error";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useIdentityToken } from "@/hooks/useIdentityToken";
 import { startTransaction } from "@/lib/api/centralbank";
 import Modal from "@/components/Modal";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function HomeContent() {
   const router = useRouter();
@@ -26,12 +26,11 @@ function HomeContent() {
     try {
       setLoading(true);
 
-      // --- AUDIO ARMING ---
+      // Audio
       const audio = new Audio("/sound.mp3");
       await audio.play(); // allowed because user clicked
       audio.pause(); // stop immediately
       sessionStorage.setItem("playAudio", "true");
-      // ---------------------
 
       const result = await startTransaction(
         token, //Token from URL
@@ -48,12 +47,11 @@ function HomeContent() {
       // Attach stamp in API response to URL
       // Redirect to attraction page
       setTimeout(() => {
-        // NEW API RESPONSE
         // If (no stamp) -> modal with information:
         if (!result.stamp) {
           setModalTitle("No stamp for you!");
           setModalMessage(
-            "Oh? So you wanted another stamp? 3 minutes have not passed since your last visit to this amusement. GET OUT OF HERE!",
+            "Oh?! So you wanted another stamp? 3 minutes have not passed since your last visit to this amusement. GET OUT OF HERE!",
           );
           setModalOpen(true);
           setLoading(false);
@@ -141,7 +139,6 @@ function HomeContent() {
               {loading ? "Loading..." : "See an animal"}
             </button>
 
-            {/* <BackToBtn /> */}
             <BackToBtn tokenValid={!!token && !loading} />
           </div>
         </article>
