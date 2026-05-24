@@ -20,12 +20,14 @@ export default function Modal({
     if (!open) return;
 
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        window.parent.postMessage({ type: "AMUSEMENT_CLOSE" }, "*");
+      }
     }
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [open, onClose]);
+  }, [open]);
 
   // Focus trap
   useEffect(() => {
