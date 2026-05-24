@@ -26,6 +26,13 @@ function HomeContent() {
     try {
       setLoading(true);
 
+      // --- AUDIO ARMING ---
+      const audio = new Audio("/sound.mp3");
+      await audio.play(); // allowed because user clicked
+      audio.pause(); // stop immediately
+      sessionStorage.setItem("playAudio", "true");
+      // ---------------------
+
       const result = await startTransaction(
         token, //Token from URL
         2, // Entrance fee

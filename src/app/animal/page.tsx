@@ -27,6 +27,17 @@ function AnimalContent() {
   const imgRef = useRef<HTMLImageElement>(null);
   const [animalWidth, setAnimalWidth] = useState(0);
 
+  // Get audio from sessionStorage
+  useEffect(() => {
+    const shouldPlay = sessionStorage.getItem("playAudio");
+
+    if (shouldPlay) {
+      const audio = new Audio("/sound.mp3");
+      audio.play();
+      sessionStorage.removeItem("playAudio");
+    }
+  }, []);
+
   // Page transition
   useEffect(() => {
     const overlay = document.getElementById("page-transition");
@@ -173,7 +184,7 @@ function AnimalContent() {
             </>
           )}
         </section>
-        {/* This is the section where the animals moves  TRY w-full instead of w-screen */}
+        {/* This is the section where the animals moves */}
         <section className="flex items-end justify-end h-1/3 w-full overflow-x-hidden landscape:h-1/2 md:landscape:h-1/3">
           {paradeAnimal && (
             <div
