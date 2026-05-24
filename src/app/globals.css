@@ -69,4 +69,5 @@ body {
 
 .page-transition.active {
   opacity: 1;
+  backdrop-filter: blur(6px);
 }
