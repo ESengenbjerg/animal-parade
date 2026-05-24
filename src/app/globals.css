@@ -34,7 +34,8 @@ body {
   100% {
     /* transform: translateX(-105vw); */
     /* transform: translateX(-350px); */
-    transform: translateX(-250px);
+    /* transform: translateX(-250px); */
+    transform: translateX(-150px);
   }
 }
 
