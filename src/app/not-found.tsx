@@ -10,7 +10,7 @@ export default function NotFound() {
           {/* Custom button for browser, user on Loopland shouldn't be able to get here */}
           <a
             href="/"
-            className="bg-orange-400 hover:bg-orange-500 text-white text-xl px-6 py-3 rounded-xl shadow-lg transition md:text-2xl"
+            className="bg-orange-400 hover:bg-orange-500 text-white text-xl font-semibold px-6 py-3 rounded-xl shadow-lg transition md:text-2xl"
           >
             Back to start
           </a>
