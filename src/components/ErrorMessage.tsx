@@ -1,5 +1,6 @@
 "use client";
 
+// Error message, used on landing page
 export default function ErrorMessage({
   title = "Error",
   message,

@@ -11,27 +11,20 @@ import { Suspense, useEffect } from "react";
 function ReceiptContent() {
   const searchParams = useSearchParams();
 
-  // Parse stamp from query
+  // Fetch & validate stamp from query
   const stamp = useStampFromQuery();
-
-  // Validate stamp
   const validation = validateStamp(stamp);
 
   // Fade in effects
   useEffect(() => {
     const overlay = document.getElementById("page-transition");
-    // const receipt = document.getElementById("receipt-card");
-
-    // Start on black page
     overlay?.classList.add("active");
-
-    // Fade in page
     setTimeout(() => {
       overlay?.classList.remove("active");
     }, 50);
   }, []);
 
-  // Fallback UI if stamp is invalid
+  // Fallback UI if stamp is invalid/missing
   if (!validation.valid) {
     return (
       <Background>

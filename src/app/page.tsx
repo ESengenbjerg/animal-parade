@@ -12,42 +12,39 @@ import { useRouter } from "next/navigation";
 
 function HomeContent() {
   const router = useRouter();
+
+  // UI states
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
 
-  // Read token from URL
+  // Read & remove token from URL
   const token = useIdentityToken();
 
+  // Start amusement, trigger transaction & redirect
   async function handleStart() {
     if (!token) return;
 
     try {
       setLoading(true);
 
-      // Audio
+      // Audio, mainly used on /animal, user interaction on landing page
       const audio = new Audio("/sound.mp3");
       await audio.play(); // allowed because user clicked
       audio.pause(); // stop immediately
       sessionStorage.setItem("playAudio", "true");
 
-      const result = await startTransaction(
-        token, //Token from URL
-        2, // Entrance fee
-      );
+      // Transaction request (token, entrance fee & amusement validator)
+      const result = await startTransaction(token, 2);
+      console.log("Transaction result:", result); // See response
 
-      // Check what transaction request retruns:
-      console.log("Transaction result:", result);
-
-      // Page transition
+      // Page transition overlay
       const overlay = document.getElementById("page-transition");
       overlay?.classList.add("active");
 
-      // Attach stamp in API response to URL
-      // Redirect to attraction page
       setTimeout(() => {
-        // If (no stamp) -> modal with information:
+        // No stamp -> modal with information:
         if (!result.stamp) {
           setModalTitle("No stamp for you!");
           setModalMessage(
@@ -58,12 +55,13 @@ function HomeContent() {
           return;
         }
 
-        // Valid stamp -> go to /animal
+        // Valid stamp -> redirect to /animal, attach stamp from API response to URL
         router.push(
           `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
         );
       }, 800); // Match duration in CSS animation
     } catch (err: unknown) {
+      // Error handling
       console.error("RAW ERROR:", err);
       const code = mapError(err);
 
@@ -87,6 +85,7 @@ function HomeContent() {
           break;
       }
 
+      // Show error message in modal
       setModalTitle(title);
       setModalMessage(message);
       setModalOpen(true);

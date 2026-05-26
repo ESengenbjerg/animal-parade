@@ -1,5 +1,6 @@
 "use client";
 
+// Button element connected with <iframe>, uses postMessage to close <iframe>
 export default function BackToBtn({ tokenValid }: { tokenValid?: boolean }) {
   const colorClasses = tokenValid
     ? "bg-orange-700 hover:bg-orange-800 text-white" // darker for Cancel

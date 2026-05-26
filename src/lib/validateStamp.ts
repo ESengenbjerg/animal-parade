@@ -21,5 +21,6 @@ export function validateStamp(stamp: unknown) {
     return { valid: false, reason: "STAMP_INVALID" };
   }
 
+  // Stamp returned if valid
   return { valid: true as const };
 }

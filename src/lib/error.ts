@@ -8,12 +8,15 @@ export type AppErrorCode =
   | "UNKNOWN";
 
 export function mapError(err: unknown): AppErrorCode {
+  // Missing error & fallback for poosible errors not thought of
   if (!err || typeof err !== "object") return "UNKNOWN";
 
+  // Check if error is of valid type
   const parsedError = err as { message?: unknown };
 
   if (typeof parsedError.message !== "string") return "UNKNOWN";
 
+  // Return fitting error message for each type respectively
   switch (parsedError.message) {
     case "Invalid or expired identity token":
       return "TOKEN_EXPIRED";

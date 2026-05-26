@@ -1,3 +1,4 @@
+// ----- TYPES FROM API -----
 // Possible stamps from Centralbank:
 export type StampAnimal = "lion" | "dolphin" | "toucan" | "beetlebug" | "snake";
 
@@ -9,7 +10,7 @@ export const stampAnimals: StampAnimal[] = [
   "snake",
 ];
 
-// For backend
+// Meta data for stamp types from API:
 export interface StampType {
   id: number;
   animal: StampAnimal;
@@ -19,7 +20,7 @@ export interface StampType {
   updated_at?: string;
 }
 
-// For backend
+// Stamp the user receives from API
 export interface Stamp {
   id: number;
   user_id: number;
@@ -30,7 +31,22 @@ export interface Stamp {
   stamptype: StampType;
 }
 
+// Stamp in response from API
+export interface ApiStamp {
+  animal: StampAnimal;
+  metal: "silver" | "gold" | "platinum" | null;
+  image_url: string;
+}
+
+// Metals allowed by API
 export const validMetals = ["silver", "gold", "platinum"] as const;
+
+// Response from /transactions
+export interface TransactionResponse {
+  transaction_id: number;
+  amount: number;
+  stamp: ApiStamp | null;
+}
 
 // Error from API
 export interface ApiError {
@@ -38,9 +54,7 @@ export interface ApiError {
   status?: number;
 }
 
-// Parade animals:
-// export type Animals = "lion" | "zebra" | "peacock" | "penguin" | "turtle";
-
+// ----- ANIMAL PARADE TYPES -----
 export const paradeAnimals = [
   "lion",
   "zebra",
@@ -108,22 +122,9 @@ export const animalFacts: Record<Animal, string[]> = {
   ],
 };
 
-// Frontend stamp
+// Frontend stamp (UI)
 export interface ShowStamp {
   animal: StampAnimal;
-  metal?: "silver" | "gold" | "platinum";
+  metal?: "silver" | "gold" | "platinum" | null;
   image_url?: string;
-}
-
-// Stamp returned directly from Centralbank API
-export interface ApiStamp {
-  animal: StampAnimal;
-  metal: "silver" | "gold" | "platinum" | null;
-  image_url: string;
-}
-
-export interface TransactionResponse {
-  transaction_id: number;
-  amount: number;
-  stamp: ApiStamp | null;
 }

@@ -23,6 +23,7 @@ import {
   animalFacts,
 } from "@/lib/api/types";
 
+// Randomize an animal fact to display
 function getRandomFact(animal: Animal) {
   const facts = animalFacts[animal];
   const index = Math.floor(Math.random() * facts.length);
@@ -32,12 +33,14 @@ function getRandomFact(animal: Animal) {
 function AnimalContent() {
   const router = useRouter();
   const stamp = useStampFromQuery();
+
+  // UI states
   const [paradeAnimal, setParadeAnimal] = useState<Animal | null>(null);
   const [introDone, setIntroDone] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   const [animalWidth, setAnimalWidth] = useState(0);
 
-  // Get audio from sessionStorage
+  // Play audio (user interaction saved in sessionStorage)
   useEffect(() => {
     const shouldPlay = sessionStorage.getItem("playAudio");
 
@@ -48,20 +51,17 @@ function AnimalContent() {
     }
   }, []);
 
-  // Page transition
+  // Page transition, start black and fade in
   useEffect(() => {
     const overlay = document.getElementById("page-transition");
-
-    //Start black
     overlay?.classList.add("active");
 
-    // Fade in by removing class
     setTimeout(() => {
       overlay?.classList.remove("active");
     }, 50);
   }, []);
 
-  // Initial delay - for nice UI experience, even with fast animals
+  // Initial delay before animal animation - better UX
   const initialDelay = 6000;
 
   // Pick random parade animal
@@ -89,7 +89,7 @@ function AnimalContent() {
     return () => clearTimeout(timer);
   }, [paradeAnimal, stamp]);
 
-  // Measure animal width when image loads
+  // Measure animal width when image loads (used to decide end position in animation)
   useEffect(() => {
     if (!imgRef.current) return;
 
@@ -107,18 +107,20 @@ function AnimalContent() {
     return () => img.removeEventListener("load", handleLoad);
   }, [paradeAnimal]);
 
-  // When intro is done, animal animation + redirect to receipt:
+  // When intro is done, run animal animation + redirect to /receipt:
   useEffect(() => {
     if (!paradeAnimal || !introDone) return;
 
     const duration = animalSpeed[paradeAnimal];
     const fadeTime = 800;
 
+    // Start fade out to black, before redirect
     const timer = setTimeout(() => {
       const overlay = document.getElementById("page-transition");
       overlay?.classList.add("active");
     }, duration - fadeTime);
 
+    // Redirect to /receipt when fade out is finished
     const redirectTimer = setTimeout(() => {
       router.push(
         `/receipt?stamp=${encodeURIComponent(JSON.stringify(stamp))}`,
@@ -131,7 +133,7 @@ function AnimalContent() {
     };
   }, [paradeAnimal, stamp, introDone, router]);
 
-  // Fallback to avoid crash
+  // Fallback to avoid crash (stamp is still loading)
   if (stamp === undefined) {
     return (
       <Background>
@@ -142,7 +144,7 @@ function AnimalContent() {
     );
   }
 
-  // Fallback to avoid crash
+  // No stamp - fallback to avoid crash
   if (stamp === null) {
     return (
       <Background>
@@ -157,7 +159,7 @@ function AnimalContent() {
     );
   }
 
-  // Guard
+  // Guard - validate stamp
   const validation = validateStamp(stamp);
 
   // Fallback UI if not valid stamp

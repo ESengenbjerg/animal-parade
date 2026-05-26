@@ -1,3 +1,4 @@
+// Wrapper, static background image
 export default function Background({
   children,
 }: {

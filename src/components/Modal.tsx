@@ -44,13 +44,13 @@ export default function Modal({
       if (e.key !== "Tab") return;
 
       if (e.shiftKey) {
-        // Shift + Tab
+        // Shift + Tab - jump to last element
         if (document.activeElement === first) {
           e.preventDefault();
           last.focus();
         }
       } else {
-        // Tab
+        // Tab - jump to first element
         if (document.activeElement === last) {
           e.preventDefault();
           first.focus();
@@ -64,11 +64,11 @@ export default function Modal({
     return () => document.removeEventListener("keydown", trap);
   }, [open]);
 
+  // Closed modal - don't render
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 backdrop-blur-md flex items-center justify-center z-50">
-      {/* Removed bg-gray-500/20 */}
       <div
         ref={modalRef}
         className="flex flex-col justify-center items-center
