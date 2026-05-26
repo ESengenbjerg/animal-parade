@@ -148,12 +148,14 @@ function AnimalContent() {
   if (stamp === null) {
     return (
       <Background>
-        <section className="w-1/3 h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
-          <ErrorMessage
-            title="Invalid stamp"
-            message="Sorry! Something went wrong. Please return to Loopland"
-          />
-          <BackToBtn />
+        <section className="w-screen h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
+          <article className="w-1/3">
+            <ErrorMessage
+              title="Invalid stamp"
+              message="Sorry! Something went wrong. Please return to Loopland"
+            />
+            <BackToBtn />
+          </article>
         </section>
       </Background>
     );
@@ -166,12 +168,14 @@ function AnimalContent() {
   if (!validation.valid) {
     return (
       <Background>
-        <section className="w-1/3 h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
-          <ErrorMessage
-            title="Invalid stamp"
-            message="Sorry! Something went wrong. Please return to Loopland"
-          />
-          <BackToBtn />
+        <section className="w-screen h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
+          <article className="w-1/3">
+            <ErrorMessage
+              title="Invalid stamp"
+              message="Sorry! Something went wrong. Please return to Loopland"
+            />
+            <BackToBtn />
+          </article>
         </section>
       </Background>
     );
