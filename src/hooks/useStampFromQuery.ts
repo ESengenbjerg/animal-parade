@@ -35,12 +35,13 @@ export function useStampFromQuery() {
     try {
       const parsed = JSON.parse(raw);
 
-      if (isValidShowStamp(parsed)) {
-        setStamp(parsed);
-      } else {
-        console.error("Invalid stamp structure", parsed);
-        setStamp(null);
-      }
+      //   if (isValidShowStamp(parsed)) {
+      //     setStamp(parsed);
+      //   } else {
+      //     console.error("Invalid stamp structure", parsed);
+      //     setStamp(null);
+      //   }
+      setStamp(parsed);
     } catch (err) {
       console.error("Failed to parse stamp:", err);
       setStamp(null);
