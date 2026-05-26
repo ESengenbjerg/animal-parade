@@ -15,6 +15,7 @@ function isValidShowStamp(value: unknown): value is ShowStamp {
 
   const hasValidMetal =
     v.metal === undefined ||
+    v.metal === null ||
     (typeof v.metal === "string" && validMetals.includes(v.metal as any));
 
   return hasValidAnimal && hasValidMetal;
@@ -35,13 +36,13 @@ export function useStampFromQuery() {
     try {
       const parsed = JSON.parse(raw);
 
-      //   if (isValidShowStamp(parsed)) {
-      //     setStamp(parsed);
-      //   } else {
-      //     console.error("Invalid stamp structure", parsed);
-      //     setStamp(null);
-      //   }
-      setStamp(parsed);
+      if (isValidShowStamp(parsed)) {
+        setStamp(parsed);
+      } else {
+        console.error("Invalid stamp structure", parsed);
+        setStamp(null);
+      }
+      //   setStamp(parsed);
     } catch (err) {
       console.error("Failed to parse stamp:", err);
       setStamp(null);
