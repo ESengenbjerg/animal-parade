@@ -5,12 +5,9 @@ import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
-import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
 function ReceiptContent() {
-  // const searchParams = useSearchParams();
-
   // Fetch & validate stamp from query
   const stamp = useStampFromQuery();
   const validation = validateStamp(stamp);
