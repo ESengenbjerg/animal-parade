@@ -1,15 +1,25 @@
 import { stampAnimals, validMetals } from "@/lib/api/types";
 
-export function validateStamp(stamp: any) {
-  if (!stamp) return { valid: false, reason: "STAMP_MISSING" };
+export function validateStamp(stamp: unknown) {
+  // Missing stamp
+  if (!stamp || typeof stamp !== "object") {
+    return { valid: false, reason: "STAMP_MISSING" };
+  }
 
-  if (!stamp.animal || !stampAnimals.includes(stamp.animal)) {
+  const parsedStamp = stamp as Record<string, unknown>;
+
+  // Validate animal
+  if (
+    !parsedStamp.animal ||
+    !stampAnimals.includes(parsedStamp.animal as any)
+  ) {
     return { valid: false, reason: "STAMP_INVALID" };
   }
 
-  if (stamp.metal && !validMetals.includes(stamp.metal)) {
+  // Validate metal (if exists)
+  if (parsedStamp.metal && !validMetals.includes(parsedStamp.metal as any)) {
     return { valid: false, reason: "STAMP_INVALID" };
   }
 
-  return { valid: true };
+  return { valid: true as const };
 }

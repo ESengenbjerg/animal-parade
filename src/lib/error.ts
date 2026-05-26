@@ -7,10 +7,14 @@ export type AppErrorCode =
   | "STAMP_INVALID"
   | "UNKNOWN";
 
-export function mapError(err: any): AppErrorCode {
-  if (!err) return "UNKNOWN";
+export function mapError(err: unknown): AppErrorCode {
+  if (!err || typeof err !== "object") return "UNKNOWN";
 
-  switch (err.message) {
+  const parsedError = err as { message?: unknown };
+
+  if (typeof parsedError.message !== "string") return "UNKNOWN";
+
+  switch (parsedError.message) {
     case "Invalid or expired identity token":
       return "TOKEN_EXPIRED";
     case "Invalid api_key":

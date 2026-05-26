@@ -63,7 +63,7 @@ function HomeContent() {
           `/animal?stamp=${encodeURIComponent(JSON.stringify(result.stamp))}`,
         );
       }, 800); // Match duration in CSS animation
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("RAW ERROR:", err);
       const code = mapError(err);
 

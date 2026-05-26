@@ -109,7 +109,7 @@ export const animalFacts: Record<Animal, string[]> = {
 };
 
 // Frontend stamp
-export interface ParadeStamp {
+export interface ShowStamp {
   animal: StampAnimal;
   metal?: "silver" | "gold" | "platinum";
   image_url?: string;

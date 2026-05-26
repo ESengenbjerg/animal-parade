@@ -5,7 +5,14 @@ import Background from "@/components/Background";
 import BackToBtn from "@/components/BackToBtn";
 import ErrorMessage from "@/components/ErrorMessage";
 import { validateStamp } from "@/lib/validateStamp";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useStampFromQuery } from "@/hooks/useStampFromQuery";
 import { useRouter } from "next/navigation";
 import {
@@ -207,12 +214,14 @@ function AnimalContent() {
                 animal-wrapper animate-walk  ${
                   introDone ? "animate-running" : "animate-paused"
                 }`}
-              style={{
-                animationDuration: `${animalSpeed[paradeAnimal]}ms`,
-                height: animalHeight[paradeAnimal],
-                // Send endX to CSS
-                ["--endX" as any]: `${endX}px`,
-              }}
+              style={
+                {
+                  animationDuration: `${animalSpeed[paradeAnimal]}ms`,
+                  height: animalHeight[paradeAnimal],
+                  // Send endX to CSS
+                  "--endX": `${endX}px`,
+                } as React.CSSProperties
+              }
             >
               <img
                 ref={imgRef}

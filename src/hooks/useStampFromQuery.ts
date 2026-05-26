@@ -2,15 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import {
-  ApiStamp,
-  ParadeStamp,
-  stampAnimals,
-  validMetals,
-} from "@/lib/api/types";
+import { ShowStamp, stampAnimals, validMetals } from "@/lib/api/types";
 
-// Type guard for ParadeStamp
-function isParadeStamp(value: unknown): value is ParadeStamp {
+// Type guard for ShowStamp
+function isValidShowStamp(value: unknown): value is ShowStamp {
   if (typeof value !== "object" || value === null) return false;
 
   const v = value as Record<string, unknown>;
@@ -27,7 +22,7 @@ function isParadeStamp(value: unknown): value is ParadeStamp {
 
 export function useStampFromQuery() {
   const searchParams = useSearchParams();
-  const [stamp, setStamp] = useState<ApiStamp | null | undefined>(undefined);
+  const [stamp, setStamp] = useState<ShowStamp | null | undefined>(undefined);
 
   useEffect(() => {
     const raw = searchParams.get("stamp");
@@ -39,7 +34,13 @@ export function useStampFromQuery() {
 
     try {
       const parsed = JSON.parse(raw);
-      setStamp(parsed);
+
+      if (isValidShowStamp(parsed)) {
+        setStamp(parsed);
+      } else {
+        console.error("Invalid stamp structure", parsed);
+        setStamp(null);
+      }
     } catch (err) {
       console.error("Failed to parse stamp:", err);
       setStamp(null);
