@@ -29,7 +29,7 @@ function ReceiptContent() {
     return (
       <Background>
         <section className="w-screen h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
-          <article className="w-1/3">
+          <article className="flex flex-col gap-4 w-1/3">
             <ErrorMessage
               title="Missing or invalid stamp"
               message="We could not find your stamp. Please return to Loopland"
