@@ -3,8 +3,8 @@ import Background from "@/components/Background";
 export default function NotFound() {
   return (
     <Background>
-      <main className="flex flex-col items-center justify-center h-screen text-center">
-        <section className="flex flex-col justify-center items-center w-1/3 text-center">
+      <main className="flex items-center justify-center h-screen">
+        <section className="flex flex-col justify-center items-center w-1/3 text-center text-black">
           <h1 className="text-4xl font-bold mb-4">404 — Lost in the Parade</h1>
           <p className="mb-6">This animal seems to have wandered off...</p>
           {/* Custom button for browser, user on Loopland shouldn't be able to get here */}
