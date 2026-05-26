@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 
 function ReceiptContent() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   // Fetch & validate stamp from query
   const stamp = useStampFromQuery();
