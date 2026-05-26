@@ -137,7 +137,7 @@ function AnimalContent() {
   if (stamp === undefined) {
     return (
       <Background>
-        <section className="flex flex-col items-center justify-center h-screen text-white">
+        <section className="h-screen w-screen flex items-center justify-center text-black">
           <p>Loading animal...</p>
         </section>
       </Background>
@@ -148,7 +148,7 @@ function AnimalContent() {
   if (stamp === null) {
     return (
       <Background>
-        <section className="w-screen h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
+        <section className="w-screen h-screen flex justify-center items-center px-4 text-center">
           <article className="flex flex-col gap-4 w-1/3">
             <ErrorMessage
               title="Invalid stamp"
@@ -168,7 +168,7 @@ function AnimalContent() {
   if (!validation.valid) {
     return (
       <Background>
-        <section className="w-screen h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
+        <section className="w-screen h-screen flex justify-center items-center px-4 text-center">
           <article className="flex flex-col gap-4 w-1/3">
             <ErrorMessage
               title="Invalid stamp"
