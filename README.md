@@ -15,35 +15,20 @@ When visitors choose "See an animal", a randomized animal appear. After the anim
 
 animal-parade/
 │
-
 ├── app/
-
 │ ├── page.tsx # Landing page
-
 │ ├── animal/page.tsx # Animal page with animation
-
 │ ├── receipt/page.tsx # Receipt page
-
 │ ├── globals.css
-
 │ └── layout.tsx
-
 │
-
 ├── public/
-
 │ └── animal-bg.jpg # Background image
-
 │
-
 ├── components/
-
 │ └── BackToBtn.tsx
-
 │
-
 └── libs/
-
 │ └── types.ts # Types for animals, stamps, etc.
 
 ## Tech stack
