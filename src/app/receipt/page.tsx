@@ -28,13 +28,15 @@ function ReceiptContent() {
   if (!validation.valid) {
     return (
       <Background>
-        <ErrorMessage
-          title="Missing or invalid stamp"
-          message="We could not find your stamp. Please return to Loopland"
-        />
-        <article className="mt-12">
-          <BackToBtn />
-        </article>
+        <section className="w-1/3 h-screen flex flex-col justify-center items-center gap-4 px-4 text-center">
+          <ErrorMessage
+            title="Missing or invalid stamp"
+            message="We could not find your stamp. Please return to Loopland"
+          />
+          <article className="">
+            <BackToBtn />
+          </article>
+        </section>
       </Background>
     );
   }
